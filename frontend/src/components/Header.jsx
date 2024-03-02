@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <header className='flex items-center justify-between p-4 bg-gray-800 text-white'>
       <div className='flex items-center'>
-        <img src='/path/to/logo.png' alt='Logo' className='w-10 h-10' />
+        <img src='logo.png' alt='Logo' className='w-18 h-12 p-0' />
         <input
           type='text'
           placeholder='Search'
