@@ -1,12 +1,27 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { RiMailLine, RiLockPasswordLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
-import { handleLogin } from "../Api/ApiReqest";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
+  const handleLogin = async () => {
+    try {
+      const { data } = await axios.post("/user/login", { email, password });
+      if (data.success) {
+        toast.success(data.message);
+        navigate("/");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className='flex flex-col items-center justify-center h-screen'>
       <h1 className='text-3xl font-bold mb-6'>Login</h1>
@@ -34,7 +49,7 @@ const Login = () => {
         <div className='flex justify-between '>
           <button
             className='bg-blue-500 text-white rounded-md px-4 py-2'
-            onClick={() => handleLogin(email, password)}
+            onClick={() => handleLogin()}
           >
             Sign In
           </button>

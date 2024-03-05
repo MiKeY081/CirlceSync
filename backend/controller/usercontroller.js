@@ -189,12 +189,13 @@ const deleteUser = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
-  const { id } = req.params;
   try {
-    const user = await prisma.user.findUnique({
-      where: { id },
-    });
-    if (user) {
+    if (req.user.id) {
+      const { id } = req.user;
+      const user = await prisma.user.findUnique({
+        where: { id },
+      });
+
       res.send({
         success: true,
         message: "User found",
@@ -202,8 +203,8 @@ const getUser = async (req, res) => {
       });
     } else {
       res.send({
-        success: false,
-        message: "User not found",
+        success: true,
+        message: "No login session",
       });
     }
   } catch (error) {

@@ -8,6 +8,7 @@ import {
   registerUser,
   updateUser,
 } from "../controller/usercontroller.js";
+import { isSignedIn } from "../middleware/userMiddleware.js";
 
 const router = Router();
 
@@ -17,5 +18,5 @@ router.post("/user/login", login);
 router.put("/user/update/:id", updateUser);
 router.post("/user/logout", logout);
 router.delete("/user/delete/:id", deleteUser);
-router.post("/user/getuser/:id", getUser);
+router.get("/user/getuser", isSignedIn, getUser);
 export { router as userRoute };

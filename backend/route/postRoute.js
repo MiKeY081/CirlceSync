@@ -16,6 +16,6 @@ router.post("/post/create", isSignedIn, createPost);
 router.put("/post/update/:id", isSignedIn, updatePost);
 router.delete("/post/delete/:id", isSignedIn, deletePost);
 router.post("/post/like/:id", isSignedIn, likeAPost);
-router.post("/post/:id", isSignedIn, getPostById);
+router.get("/post/:id", isSignedIn, getPostById);
 
 export { router as postRoute };

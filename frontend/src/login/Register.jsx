@@ -1,12 +1,31 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { handleRegister } from "../Api/ApiReqest";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const handleRegister = async () => {
+    try {
+      const { data } = await axios.post("/user/register", {
+        name,
+        email,
+        password,
+      });
+      if (data.success) {
+        toast.success(data.message);
+        navigate("/user/login");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className='flex flex-col items-center justify-center h-screen'>
       <h1 className='text-3xl font-bold mb-6'>Register</h1>
@@ -43,7 +62,7 @@ const Register = () => {
         </div>
         <div className='flex justify-between'>
           <button
-            onClick={() => handleRegister(name, email, password)}
+            onClick={(e) => handleRegister(e)}
             className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 mt-6 rounded'
           >
             Register

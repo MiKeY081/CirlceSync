@@ -1,37 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PostCard from "../components/PostCard";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Posts = () => {
-  const posts = [
-    {
-      caption: "First post",
-      image: "https://example.com/image1.jpg",
-      like: "heart",
-      comment: "comment",
-      share: "share",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      caption: "Second post",
-      image: "https://example.com/image2.jpg",
-      like: "heart",
-      comment: "comment",
-      share: "share",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    // Add more posts here...
-  ];
-
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    handleFetchPosts();
+  }, []);
+  const handleFetchPosts = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get("/post/getposts");
+      if (data.success) {
+        setPosts(data.posts);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  console.log(posts);
   return (
-    <div className='grid grid-cols-1 gap-4'>
-      {posts.map((post, index) => (
-        <div className='flex flex-col items-center justify-center'>
-          <PostCard key={index} post={post} />
-        </div>
-      ))}
-    </div>
+    <>
+      {posts &&
+        posts?.map((post, index) => (
+          <div
+            key={index}
+            className='flex flex-col items-center justify-center gap-20'
+          >
+            <PostCard key={index} post={post} />
+          </div>
+        ))}
+    </>
   );
 };
 

@@ -73,8 +73,7 @@ const createPost = async (req, res) => {
 };
 
 const updatePost = async (req, res) => {
-  const { id } = req.params;
-  const { caption, image } = req.body;
+  const { id, caption, image } = req.body;
   try {
     const post = await prisma.post.update({
       where: { id },
