@@ -5,21 +5,20 @@ import cookie from "cookie-parser";
 
 const getUsers = async (req, res) => {
   try {
-    const users = await prisma.user.findMany({
-      include: { Post: true },
-    });
+    const users = await prisma.user.findMany();
     if (!users) {
       res.send({
         success: true,
         message: "No users found",
         users,
       });
+    } else {
+      res.send({
+        success: true,
+        message: "Users found",
+        users,
+      });
     }
-    res.send({
-      success: true,
-      message: "Users found",
-      users,
-    });
   } catch (error) {
     res.send({
       success: false,
@@ -194,6 +193,7 @@ const getUser = async (req, res) => {
       const { id } = req.user;
       const user = await prisma.user.findUnique({
         where: { id },
+        include: { Post: true },
       });
 
       res.send({

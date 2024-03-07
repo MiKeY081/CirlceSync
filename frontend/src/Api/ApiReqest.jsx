@@ -11,7 +11,7 @@ const handleRegister = async (name, email, password) => {
     if (data.success) {
       toast.success(data.message);
     } else {
-      toast.danger(data.message);
+      toast.error(data.message);
     }
   } catch (error) {
     console.log(error);
@@ -24,7 +24,7 @@ const handleLogin = async (email, password) => {
     if (data.success) {
       toast.success(data.message);
     } else {
-      toast.danger(data.message);
+      toast.error(data.message);
     }
   } catch (error) {
     console.log(error);
@@ -39,7 +39,7 @@ const handleFetchPosts = async (setPosts) => {
       toast.success;
       setPosts(data.posts);
     } else {
-      toast.danger(data.message);
+      toast.error(data.message);
     }
   } catch (error) {
     console.log(error);
@@ -55,7 +55,7 @@ const handleFetchPost = async (id, setPost) => {
       toast.success;
       setPost(data.post);
     } else {
-      toast.danger(data.message);
+      toast.error(data.message);
     }
   } catch (error) {
     console.log(error);
@@ -67,7 +67,7 @@ const handleCreatePost = async (caption, image) => {
     if (data.success) {
       toast.success(data.message);
     } else {
-      toast.danger(data.message);
+      toast.error(data.message);
     }
   } catch (error) {
     console.log(error);
@@ -80,7 +80,7 @@ const handleEditPost = async (id, caption, image) => {
     if (data.success) {
       toast.success(data.message);
     } else {
-      toast.danger(data.message);
+      toast.error(data.message);
     }
   } catch (error) {
     console.log(error);
@@ -92,7 +92,7 @@ const handleDeletePost = async (id) => {
     if (data.success) {
       toast.success(data.message);
     } else {
-      toast.danger(data.message);
+      toast.error(data.message);
     }
   } catch (error) {
     console.log(error);
@@ -133,7 +133,7 @@ const editComment = async (id, comment) => {
     if (data.success) {
       toast.success(data.message);
     } else {
-      toast.danger(data.message);
+      toast.error(data.message);
     }
   } catch (error) {
     console.log(error);
@@ -146,7 +146,7 @@ const deleteComment = async (id, commentId) => {
     if (data.success) {
       toast.success(data.message);
     } else {
-      toast.danger(data.message);
+      toast.error(data.message);
     }
   } catch (error) {
     console.log(error);
@@ -158,9 +158,23 @@ const handleFetchAllProfiles = async (setUsers) => {
     const { data } = await axios.get("/user/getUsers");
     if (data.success) {
       toast.success(data.message);
-      setUsers(data.user);
+      setUsers(data.users);
     } else {
-      toast.danger(data.message);
+      toast.error(data.message);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const handleUserProfile = async (setUser) => {
+  try {
+    const { data } = await axios.get(`/user/getUser`);
+    if (data.success) {
+      toast.success(data.message);
+      setUser(data.user);
+    } else {
+      toast.error(data.message);
     }
   } catch (error) {
     console.log(error);
@@ -173,7 +187,7 @@ const handleFetchProfile = async (id, setUser) => {
       toast.success(data.message);
       setUser(data.user);
     } else {
-      toast.danger(data.message);
+      toast.error(data.message);
     }
   } catch (error) {
     console.log(error);
@@ -193,7 +207,7 @@ const handleEditProfile = async (name, email, image, phone, address, dob) => {
     if (data.success) {
       toast.success(data.message);
     } else {
-      toast.danger(data.message);
+      toast.error(data.message);
     }
   } catch (error) {
     console.log(error);
@@ -206,7 +220,7 @@ const handleDeleteProfile = async () => {
     if (data.success) {
       toast.success(data.message);
     } else {
-      toast.danger(data.message);
+      toast.error(data.message);
     }
   } catch (error) {
     console.log(error);
@@ -225,7 +239,9 @@ export {
   handleComment,
   editComment,
   deleteComment,
+  handleUserProfile,
   handleFetchProfile,
+  handleFetchAllProfiles,
   handleEditProfile,
   handleDeleteProfile,
 };

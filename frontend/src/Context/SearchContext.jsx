@@ -1,20 +1,19 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
+import { handleFetchAllProfiles } from "../Api/ApiReqest";
 
-// Create the SearchContext
 export const SearchContext = createContext();
 
-// Create the SearchContextProvider component
 export const SearchContextProvider = ({ children }) => {
-  const [searchQuery, setSearchQuery] = useState("");
-
-  // Function to update the search query
-  const updateSearchQuery = (query) => {
-    setSearchQuery(query);
-  };
-
+  const [user, setUser] = useState();
+  useEffect(() => {
+    handleFetchAllProfiles(setUser);
+  }, []);
+  console.log(user);
   return (
-    <SearchContext.Provider value={{ searchQuery, updateSearchQuery }}>
+    <SearchContext.Provider value={{ user, setUser }}>
       {children}
     </SearchContext.Provider>
   );
 };
+
+export default SearchContextProvider;

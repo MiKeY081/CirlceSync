@@ -24,7 +24,6 @@ const Posts = () => {
       setLoading(false);
     }
   };
-  console.log(posts);
   return (
     <>
       {posts &&
