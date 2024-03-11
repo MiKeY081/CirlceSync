@@ -1,25 +1,33 @@
 import axios from "axios";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { app } from "../config/firebase";
 
 const PostForm = ({ post }) => {
   const [caption, setCaption] = useState(post?.caption || "");
-  const [image, setImage] = useState(post?.image || "");
+  const [images, setImages] = useState(post?.images || []);
+  const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!id) {
-      handleCreatePost(caption, image);
+      handleCreatePost(caption, images);
     } else {
-      handleEditPost(id, caption, image);
+      handleEditPost(id, caption, images);
     }
   };
   const handleCreatePost = async () => {
     try {
-      const { data } = await axios.post("/post/create", { caption, image });
+      const { data } = await axios.post("/post/create", { caption, images });
       if (data.success) {
         toast.success(data.message);
         navigate("/posts");
@@ -34,7 +42,7 @@ const PostForm = ({ post }) => {
     try {
       const { data } = await axios.put(`/post/update/${id}`, {
         caption,
-        image,
+        images,
         id,
       });
       if (data.success) {
@@ -47,6 +55,53 @@ const PostForm = ({ post }) => {
       console.log(error);
     }
   };
+
+  const handleImageUpload = async (e) => {
+    setIsLoading(true);
+    try {
+      toast.success("Uploading...");
+      for (let i = 0; i < e.target.files.length; i++) {
+        console.log(i);
+        const image = e.target.files[i];
+        const storage = getStorage(app);
+        const fileName = new Date().getTime() + image.name;
+        const storageRef = ref(storage, fileName);
+
+        const uploadTask = uploadBytesResumable(storageRef, image);
+
+        // Listen for state changes (including errors)
+        uploadTask.on("state_changed", (snapshot) => {
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+
+          console.log("prgress is", progress);
+
+          if (snapshot.error) {
+            console.error(snapshot.error.message);
+            toast.error("Image upload failed. Try again");
+          }
+        });
+
+        // Wait for the upload to complete before getting the URL
+        await uploadTask;
+
+        // Now it's safe to call getDownloadURL
+        const imageUrl = await getDownloadURL(storageRef);
+
+        console.log(imageUrl);
+        // Update image list with new URL
+        setImages((prev) => [...prev, imageUrl]);
+        toast.success("Image uploaded successfully");
+      }
+    } catch (error) {
+      console.error(error.message);
+      toast.error("Image upload failed. Try again");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit} className='max-w-md mx-auto'>
       <div className='mb-4'>
@@ -66,10 +121,9 @@ const PostForm = ({ post }) => {
           Image URL
         </label>
         <input
-          type='text'
+          type='file'
           id='image'
-          value={image}
-          onChange={(e) => setImage(e.target.value)}
+          onChange={(e) => handleImageUpload(e)}
           className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
           accept='image/*'
         />

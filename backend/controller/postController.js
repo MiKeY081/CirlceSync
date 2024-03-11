@@ -49,13 +49,13 @@ const getPostById = async (req, res) => {
 };
 
 const createPost = async (req, res) => {
-  const { caption, image } = req.body;
+  const { caption, images } = req.body;
   const { id } = req.user;
   try {
     const post = await prisma.post.create({
       data: {
         caption,
-        image,
+        images,
         userId: id,
       },
     });
@@ -73,13 +73,13 @@ const createPost = async (req, res) => {
 };
 
 const updatePost = async (req, res) => {
-  const { id, caption, image } = req.body;
+  const { id, caption, images } = req.body;
   try {
     const post = await prisma.post.update({
       where: { id },
       data: {
         caption,
-        image,
+        images,
       },
     });
     res.send({
@@ -145,7 +145,7 @@ const likeAPost = async (req, res) => {
       });
       res.send({
         success: true,
-        message: "Post liked successfully",
+        message: "Liked successfully",
         post,
       });
     }

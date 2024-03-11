@@ -33,7 +33,7 @@ model User {
 model Post {
   id      String    @id @default(auto()) @map("_id") @db.ObjectId
   caption String?
-  image   String?
+  images  String[]
   likedBy String[]  @db.ObjectId
   comment Comment[]
   share   Boolean   @default(false)
