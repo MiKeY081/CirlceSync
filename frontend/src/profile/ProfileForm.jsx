@@ -9,6 +9,7 @@ import { RiUserFill } from "react-icons/ri"; // Example icon from react-icons li
 import { toast } from "react-toastify";
 import { app } from "../config/firebase";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ProfileForm = ({ user }) => {
   const [name, setName] = useState(user?.name || "");
@@ -18,6 +19,7 @@ const ProfileForm = ({ user }) => {
   const [address, setAddress] = useState(user?.address || "");
   const [dob, setDob] = useState(user?.dob || "");
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   // Add more state variables for other fields if needed
 
   const handleSubmit = (e) => {
@@ -48,10 +50,10 @@ const ProfileForm = ({ user }) => {
         image,
         phone,
         address,
-        dob,
       });
       if (data.success) {
         toast.success(data.message);
+        navigate("/profile");
       } else {
         toast.error(data.message);
       }
@@ -59,9 +61,10 @@ const ProfileForm = ({ user }) => {
       console.log(error);
     }
   };
-
+  const imageSelected = 0;
   const handleImageUpload = async (e) => {
     setIsLoading(true);
+    imageSelected = 1;
     try {
       toast.success("Uploading...");
       for (let i = 0; i < e.target.files.length; i++) {
@@ -95,7 +98,7 @@ const ProfileForm = ({ user }) => {
 
         console.log(imageUrl);
         // Update image list with new URL
-        setImage((prev) => [...prev, imageUrl]);
+        setImage(imageUrl);
         toast.success("Image uploaded successfully");
       }
     } catch (error) {
@@ -105,6 +108,9 @@ const ProfileForm = ({ user }) => {
       setIsLoading(false);
     }
   };
+  // if (!imageSelected) {
+  //   setImage(user?.image);
+  // }
 
   return (
     <div className='flex flex-col items-center'>
@@ -150,7 +156,7 @@ const ProfileForm = ({ user }) => {
             Phone
           </label>
           <input
-            type='text'
+            type='number'
             id='phone'
             value={phone}
             onChange={(e) => setPhone(e.target.value)}

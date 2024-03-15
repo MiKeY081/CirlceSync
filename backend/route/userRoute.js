@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   deleteUser,
   getUser,
+  getUserById,
   getUsers,
   login,
   logout,
@@ -17,6 +18,7 @@ router.post("/user/register", registerUser);
 router.post("/user/login", login);
 router.put("/user/update", isSignedIn, updateUser);
 router.post("/user/logout", isSignedIn, logout);
-router.delete("/user/delete/:id", isSignedIn, deleteUser);
+router.delete("/user/delete", isSignedIn, deleteUser);
 router.get("/user/getuser", isSignedIn, getUser);
+// router.get("/user/getuser/:id", isSignedIn, getUserById);
 export { router as userRoute };

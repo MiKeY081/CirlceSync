@@ -214,6 +214,27 @@ const getUser = async (req, res) => {
     });
   }
 };
+
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id },
+      include: { Post: true },
+    });
+
+    res.send({
+      success: true,
+      message: "User found",
+      user,
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 export {
   getUsers,
   registerUser,
@@ -222,4 +243,5 @@ export {
   logout,
   deleteUser,
   getUser,
+  getUserById,
 };

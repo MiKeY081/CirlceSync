@@ -19,7 +19,7 @@ model User {
   email    String    @unique
   password String
   image    String?
-  phone    BigInt?
+  phone    String?
   address  String?
   dob      DateTime?
   follow   String[]  @db.ObjectId

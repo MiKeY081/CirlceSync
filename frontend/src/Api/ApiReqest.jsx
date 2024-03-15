@@ -227,6 +227,15 @@ const handleDeleteProfile = async () => {
   }
 };
 
+const handleGetUserById = async (id) => {
+  try {
+    const { data } = await axios.get("/user/getuser/" + id);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   handleRegister,
   handleLogin,
@@ -244,4 +253,5 @@ export {
   handleFetchAllProfiles,
   handleEditProfile,
   handleDeleteProfile,
+  handleGetUserById,
 };
