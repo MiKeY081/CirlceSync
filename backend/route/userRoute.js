@@ -20,5 +20,5 @@ router.put("/user/update", isSignedIn, updateUser);
 router.post("/user/logout", isSignedIn, logout);
 router.delete("/user/delete", isSignedIn, deleteUser);
 router.get("/user/getuser", isSignedIn, getUser);
-// router.get("/user/getuser/:id", isSignedIn, getUserById);
+router.get("/user/getuser/:id", isSignedIn, getUserById);
 export { router as userRoute };

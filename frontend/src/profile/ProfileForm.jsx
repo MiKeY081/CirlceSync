@@ -61,10 +61,9 @@ const ProfileForm = ({ user }) => {
       console.log(error);
     }
   };
-  const imageSelected = 0;
+
   const handleImageUpload = async (e) => {
     setIsLoading(true);
-    imageSelected = 1;
     try {
       toast.success("Uploading...");
       for (let i = 0; i < e.target.files.length; i++) {
@@ -82,7 +81,7 @@ const ProfileForm = ({ user }) => {
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100
           );
 
-          console.log("prgress is", progress);
+          console.log("progress is", progress);
 
           if (snapshot.error) {
             console.error(snapshot.error.message);
@@ -108,9 +107,6 @@ const ProfileForm = ({ user }) => {
       setIsLoading(false);
     }
   };
-  // if (!imageSelected) {
-  //   setImage(user?.image);
-  // }
 
   return (
     <div className='flex flex-col items-center'>
