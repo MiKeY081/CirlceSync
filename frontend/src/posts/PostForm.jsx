@@ -10,7 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { app } from "../config/firebase";
 
-const PostForm = ({ post }) => {
+const PostForm = ({ post, placeholder }) => {
   const [caption, setCaption] = useState(post?.caption || "");
   const [images, setImages] = useState(post?.images || []);
   const [isLoading, setIsLoading] = useState(false);
@@ -112,6 +112,7 @@ const PostForm = ({ post }) => {
           type='text'
           id='caption'
           value={caption}
+          placeholder={placeholder}
           onChange={(e) => setCaption(e.target.value)}
           className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
         />

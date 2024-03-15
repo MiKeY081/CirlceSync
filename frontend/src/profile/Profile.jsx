@@ -1,9 +1,11 @@
 import React from "react";
 import { FaUser, FaEnvelope, FaEdit, FaPhone } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import PostCard from "../components/PostCard";
+import PostForm from "../posts/PostForm";
 
 const Profile = ({ user }) => {
+  const paramId = useParams();
   return (
     user && (
       <div className='flex justify-center items-center bg-gray-100 min-h-screen'>
@@ -44,10 +46,26 @@ const Profile = ({ user }) => {
             Edit Profile
           </Link>
           {!user?.Post?.length ? (
-            " "
+            <div className='py-4 px-6'>
+              <h1 className='text-xl font-semibold'>No Posts</h1>
+              {paramId.id ? (
+                <PostForm
+                  placeholder={`Write something on ${user.name} timeline  `}
+                />
+              ) : (
+                <PostForm placeholder={`Write something on your timeline  `} />
+              )}
+            </div>
           ) : (
             <div className='py-4 px-6'>
-              <h1 className='text-xl font-semibold'>Your Posts</h1>
+              <h1 className='text-xl font-semibold'>Posts</h1>
+              {paramId.id ? (
+                <PostForm
+                  placeholder={`Write something on ${user.name} timeline  `}
+                />
+              ) : (
+                <PostForm placeholder={`Write something on your timeline  `} />
+              )}
             </div>
           )}
           <div className='flex flex-col gap-4 p-4'>

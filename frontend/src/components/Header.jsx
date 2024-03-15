@@ -36,7 +36,7 @@ const Header = () => {
           <AiOutlineUser className='w-6 h-6 transition duration-300 hover:text-gray-300' />
         </Link>
       </div>
-      {search && (
+      {search && searchedUser && (
         <div className='absolute top-full left-24 bg-gray-800 w-fit p-4 rounded-md shadow-md'>
           {searchedUser && (
             <div>
