@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { app } from "../config/firebase";
+import { FiImage } from "react-icons/fi";
 
 const PostForm = ({ post, placeholder }) => {
   const [caption, setCaption] = useState(post?.caption || "");
@@ -104,7 +105,7 @@ const PostForm = ({ post, placeholder }) => {
 
   return (
     <form onSubmit={handleSubmit} className='max-w-md mx-auto'>
-      <div className='mb-4'>
+      <div className='mb-6'>
         <label htmlFor='caption' className='block text-gray-700 font-bold mb-2'>
           Caption
         </label>
@@ -117,17 +118,25 @@ const PostForm = ({ post, placeholder }) => {
           className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
         />
       </div>
-      <div className='mb-4'>
+      <div className='mb-6'>
         <label htmlFor='image' className='block text-gray-700 font-bold mb-2'>
-          Image URL
+          Image Upload
         </label>
-        <input
-          type='file'
-          id='image'
-          onChange={(e) => handleImageUpload(e)}
-          className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
-          accept='image/*'
-        />
+        <div className='flex items-center'>
+          <input
+            type='file'
+            id='image'
+            onChange={(e) => handleImageUpload(e)}
+            className='hidden'
+            accept='image/*'
+          />
+          <label
+            htmlFor='image'
+            className='cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md inline-flex items-center'
+          >
+            <FiImage className='mr-2' /> Upload Image
+          </label>
+        </div>
       </div>
       <button
         type='submit'

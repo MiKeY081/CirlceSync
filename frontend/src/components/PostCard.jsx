@@ -75,12 +75,15 @@ const PostCard = ({ post, setPosts }) => {
   console.log(post);
   return (
     post && (
-      <div className='relative group max-w-sm rounded-lg overflow-hidden shadow-md bg-white hover:shadow-lg transition-all duration-300 mb-6'>
-        <UserTab user={owner} />
-        <h3 className='text-lg font-medium text-gray-900'>{post.caption}</h3>
+      <div className='relative group w-5/6 rounded-lg overflow-hidden shadow-md bg-white hover:shadow-lg transition-all duration-300 mb-6 px-4'>
+        <UserTab user={owner} post={post} />
+        <h3 className='text-lg font-medium text-gray-900 my-3'>
+          {post?.caption}
+        </h3>
         <div className='w-full h-96 object-cover rounded-t-lg group-hover:rounded-lg hover:rounded-lg transition-all duration-300 overflow-hidden'>
           <img
-            className='h-96 overflow-hidden hover:scale-105 rounded-lg hover-rounded-lg transition-all duration-200 '
+            className='h-96 w-full overflow-hidden hover:scale-105 rounded-lg hover-rounded-lg transition-all duration-200 
+            '
             src={post.images[0]}
             alt={post.caption || "No images"}
             onClick={() => gotoPost(post.id)}
