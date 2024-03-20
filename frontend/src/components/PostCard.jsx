@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaHeart, FaComment, FaShare } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -8,28 +8,30 @@ import UserTab from "./UserTab";
 
 const PostCard = ({ post, setPosts }) => {
   const [owner, setOwner] = useState();
-
-  const id = post?.userId;
-  console.log(id);
+  const { user } = useContext(UserContext);
 
   const getUser = async () => {
     try {
-      const { data } = await axios.get(`user/getuser/${id}`);
-      if (data.success) {
-        setOwner(data.user);
-      } else {
-        console.log(data.message);
+      const id = post?.userId;
+      if (id) {
+        const { data } = await axios.get(`user/getuser/${id}`);
+        if (data.success) {
+          setOwner(data.user);
+        } else {
+          console.log(data.message);
+        }
       }
     } catch (error) {
       console.log(error.message);
     }
   };
-  getUser();
+  useEffect(() => {
+    getUser();
+  }, []);
   const navigate = useNavigate();
   const gotoPost = (id) => () => {
     navigate(`/post/${id}`);
   };
-  const { user } = useContext(UserContext);
 
   const handleLove = async (id) => {
     try {
@@ -74,6 +76,7 @@ const PostCard = ({ post, setPosts }) => {
   return (
     post && (
       <div className='relative group max-w-sm rounded-lg overflow-hidden shadow-md bg-white hover:shadow-lg transition-all duration-300 mb-6'>
+        <UserTab user={owner} />
         <h3 className='text-lg font-medium text-gray-900'>{post.caption}</h3>
         <div className='w-full h-96 object-cover rounded-t-lg group-hover:rounded-lg hover:rounded-lg transition-all duration-300 overflow-hidden'>
           <img

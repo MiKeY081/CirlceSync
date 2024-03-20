@@ -32,12 +32,7 @@ const Posts = () => {
             key={index}
             className='flex flex-col items-center justify-center gap-20'
           >
-            <PostCard
-              key={index}
-              post={post}
-              setPosts={setPosts}
-              owner={owner}
-            />
+            <PostCard key={index} post={post} setPosts={setPosts} />
           </div>
         ))}
     </>

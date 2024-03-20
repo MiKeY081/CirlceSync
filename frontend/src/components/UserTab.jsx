@@ -9,7 +9,7 @@ const UserAvatar = () => {
 
 const UserTab = ({ user }) => {
   const navigate = useNavigate();
-  const handleClick = async (id) => {
+  const handleClick = (id) => {
     navigate(`/profile/${id}`);
   };
   return (
@@ -17,14 +17,14 @@ const UserTab = ({ user }) => {
       className='tab-pane fade show active'
       id='home'
       role='tabpanel'
-      onClick={(e) => handleClick(user.id)}
+      onClick={(e) => handleClick(user?.id)}
     >
       <div className='row'>
         <div className='col-lg-4'>
           <div className='card card-small mb-4 pt-3 shadow-md rounded-lg'>
             <div className='card-header border-b-0 flex justify-center items-center'>
               <div className=' mx-auto'>
-                {user.image ? (
+                {user?.image ? (
                   <img
                     className='rounded-full'
                     src={user.image}
@@ -37,7 +37,7 @@ const UserTab = ({ user }) => {
               </div>
               {user && (
                 <h4 className='px-3 text-xl bold text-center'>
-                  {user.name.split(" ")[0]}
+                  {user?.name.split(" ")[0]}
                 </h4>
               )}
               <button
