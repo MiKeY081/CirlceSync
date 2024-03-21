@@ -27,9 +27,9 @@ const LoadProfile = () => {
   console.log(user);
   return (
     user && (
-      <>
+      <div className='w-full bg-black'>
         <Profile user={user} />
-      </>
+      </div>
     )
   );
 };

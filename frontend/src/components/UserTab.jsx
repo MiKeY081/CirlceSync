@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FiUserPlus } from "react-icons/fi";
 import { FaUserCircle } from "react-icons/fa"; // UserAvatar using React Icons
 import { useNavigate } from "react-router-dom";
+import { calculateDateTime } from "../assets/Functions/DateFunctions";
 
 const UserAvatar = () => {
   return <FaUserCircle className='text-gray-500 text-4xl' />;
@@ -14,7 +15,6 @@ const UserTab = ({ user, post }) => {
     navigate(`/profile/${id}`);
   };
   const createdDate = new Date(post?.createdAt);
-  const currentDate = new Date();
 
   // if ((createdDate - currentDate) > 1) {
   //   const formattedDate = new Intl.DateTimeFormat("en-US", {
@@ -38,40 +38,9 @@ const UserTab = ({ user, post }) => {
   //   setRevealDate(( createdDate.getTime()- currentDate.getTime())+ "ago")
   // }
 
-  function calculateRevealDate() {
-    const timeDifference = currentDate.getTime() - createdDate.getTime();
-    const daysDifference = Math.floor(timeDifference / (1000 * 3600 * 24));
-
-    let revealDate = "";
-
-    if (daysDifference > 1) {
-      // More than 1 day difference, format as full date
-      revealDate = new Intl.DateTimeFormat("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      }).format(createdDate);
-    } else if (createdDate.getMonth() !== currentDate.getMonth()) {
-      // Within the same month, format as month and day
-      revealDate = new Intl.DateTimeFormat("en-US", {
-        month: "long",
-        day: "numeric",
-      }).format(createdDate);
-    } else if (daysDifference > 5) {
-      // More than 5 days difference, show days ago with time
-      revealDate = `${daysDifference} days ago at ${createdDate.toLocaleTimeString(
-        "en-US"
-      )}`;
-    } else {
-      // Less than 1 day difference, show time ago
-      const hoursDifference = Math.floor(timeDifference / (1000 * 3600)); // Convert milliseconds to hours
-      revealDate = `${hoursDifference} hours ago`;
-    }
-
-    setRevealDate(revealDate);
-  }
   useEffect(() => {
-    calculateRevealDate(createdDate);
+    const revealDate = calculateDateTime(createdDate);
+    setRevealDate(revealDate);
   }, []);
   console.log(revealDate);
 

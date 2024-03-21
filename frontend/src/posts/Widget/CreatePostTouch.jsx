@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { FiCamera } from "react-icons/fi";
 import { FaUserCircle } from "react-icons/fa"; // Import the UserCircle icon
 
-const CreatePostTouch = () => {
+const CreatePostTouch = ({ placeholder }) => {
   const { user } = useContext(UserContext);
 
   return (
@@ -23,7 +23,7 @@ const CreatePostTouch = () => {
           <FiCamera className='text-gray-500 mr-2' />
           <input
             type='text'
-            placeholder="What's on your mind?"
+            placeholder={placeholder ? placeholder : "What's on your mind?"}
             className='bg-transparent focus:outline-none flex-grow'
           />
         </Link>
