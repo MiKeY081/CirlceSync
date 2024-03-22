@@ -27,8 +27,8 @@ const LoadProfile = () => {
   console.log(user);
   return (
     user && (
-      <div className='w-full bg-black'>
-        <Profile user={user} />
+      <div className='min-h-screen min-w-2/3'>
+        <Profile user={user} profileParamsId={id} />
       </div>
     )
   );

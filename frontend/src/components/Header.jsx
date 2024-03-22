@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
-import { AiOutlineBell, AiOutlineUser } from "react-icons/ai";
+import { AiOutlineBell } from "react-icons/ai";
 import { SearchContext } from "../Context/SearchContext";
 import UserTab from "./UserTab";
 import { Link } from "react-router-dom";
+import UserItems from "../assets/Widgets/UserItems";
 
 const Header = () => {
-  const [search, setSearch] = useState("");
-  const { user } = useContext(SearchContext);
+  const { user, search, setSearch } = useContext(SearchContext);
 
   const searchedUser = user?.filter((user) => {
     if (search) return user.name.toLowerCase().includes(search.toLowerCase());
@@ -32,9 +32,7 @@ const Header = () => {
           <RiSearchLine className='h-6 w-6' />
         </div>
         <AiOutlineBell className='w-6 h-6 mr-4 transition duration-300 hover:text-gray-300' />
-        <Link to={"/profile"}>
-          <AiOutlineUser className='w-6 h-6 transition duration-300 hover:text-gray-300' />
-        </Link>
+        <UserItems />
       </div>
       {search && searchedUser && (
         <div className='absolute top-full left-24 bg-gray-800 w-fit p-4 rounded-md shadow-md'>

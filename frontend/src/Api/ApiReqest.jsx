@@ -236,6 +236,20 @@ const handleGetUserById = async (id) => {
   }
 };
 
+const handlelogout = async () => {
+  try {
+    const { data } = await axios.post("/user/logout");
+    if (data.success) {
+      toast.success(data.message);
+    } else {
+      toast.error(data.message);
+    }
+    return await data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   handleRegister,
   handleLogin,
@@ -254,4 +268,5 @@ export {
   handleEditProfile,
   handleDeleteProfile,
   handleGetUserById,
+  handlelogout,
 };

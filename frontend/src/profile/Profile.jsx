@@ -14,11 +14,11 @@ import CreatePostTouch from "../posts/Widget/CreatePostTouch";
 const Profile = ({ user }) => {
   const paramId = useParams();
   const joinedDate = new Date(user?.createdAt);
-
   const [post, setPost] = useState();
   useEffect(() => {
     setPost(user?.Post);
   }, []);
+
   return (
     user && (
       <div className='flex justify-center items-center bg-gray-100 min-h-screen min-w-screen'>
@@ -57,13 +57,17 @@ const Profile = ({ user }) => {
               {"Joined At " + FormatedDate(joinedDate)}
             </p>
           </div>
-          <Link
-            to={"/profile/edit"}
-            className='block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 mt-4 text-center'
-          >
-            <FaEdit className='inline mr-2' />
-            Edit Profile
-          </Link>
+          {!paramId?.id ? (
+            <Link
+              to={"/profile/edit"}
+              className='block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 mt-4 text-center'
+            >
+              <FaEdit className='inline mr-2' />
+              Edit Profile
+            </Link>
+          ) : (
+            <hr />
+          )}
           {!post?.length ? (
             <div className='py-4 px-6 w-full'>
               <h1 className='text-xl font-semibold'>No Posts</h1>

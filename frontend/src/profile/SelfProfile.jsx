@@ -8,9 +8,9 @@ const SelfProfile = () => {
   console.log(user);
   return (
     user && (
-      <>
+      <div className='min-h-screen min-w-2/3'>
         <Profile user={user} />
-      </>
+      </div>
     )
   );
 };

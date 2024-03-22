@@ -25,7 +25,7 @@ const Post = () => {
     }
   };
   return (
-    <>
+    <div className="min-h-screen">
       {posts &&
         posts?.map((post, index) => (
           <div
@@ -35,7 +35,7 @@ const Post = () => {
             <PostCard key={index} post={post} />
           </div>
         ))}
-    </>
+    </div>
   );
 };
 

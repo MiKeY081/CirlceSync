@@ -29,7 +29,7 @@ const Posts = () => {
   };
 
   return (
-    <div className='container mx-auto mt-8 flex justify-center'>
+    <div className='container mx-auto mt-8 flex justify-center min-h-screen'>
       <div className='w-1/4 mr-4'>
         {/* Left-sided div */}
         <div className='bg-gray-100 p-4 rounded-md'>

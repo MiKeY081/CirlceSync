@@ -4,7 +4,7 @@ import { FaHeart, FaComment, FaShare } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { UserContext } from "../Context/UserContext";
-import UserTab from "./UserTab";
+import PostOwnerTab from "./PostOwnerTab";
 
 const PostCard = ({ post, setPosts }) => {
   const [owner, setOwner] = useState();
@@ -73,10 +73,11 @@ const PostCard = ({ post, setPosts }) => {
     console.log("Share", id);
   };
   console.log(post);
+
   return (
     post && (
       <div className='relative group w-5/6 rounded-lg overflow-hidden shadow-md bg-white hover:shadow-lg transition-all duration-300 mb-6 px-4'>
-        <UserTab user={owner} post={post} />
+        <PostOwnerTab user={owner} post={post} client={user} />
         <h3 className='text-lg font-medium text-gray-900 my-3'>
           {post?.caption}
         </h3>

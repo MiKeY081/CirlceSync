@@ -23,10 +23,18 @@ export function calculateDateTime(createdDate) {
     revealDate = `${daysDifference} days ago at ${createdDate.toLocaleTimeString(
       "en-US"
     )}`;
-  } else {
+  } else if (daysDifference < 1 && timeDifference / (1000 * 3600) >= 1) {
     // Less than 1 day difference, show time ago
     const hoursDifference = Math.floor(timeDifference / (1000 * 3600)); // Convert milliseconds to hours
-    revealDate = `${hoursDifference} hours ago`;
+    revealDate = `${hoursDifference}hr ago`;
+  } else if (timeDifference / (1000 * 60) >= 1) {
+    // Less than 1 hr difference, show time ago
+    const minDifference = Math.floor(timeDifference / (1000 * 60));
+    revealDate = `${minDifference}m ago`;
+  } else {
+    // Less than 1 min difference, show time ago
+    const secDifference = Math.floor(timeDifference / 1000);
+    revealDate = `${secDifference}sec ago`;
   }
   return revealDate;
 }

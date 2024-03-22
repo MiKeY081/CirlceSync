@@ -23,7 +23,7 @@ const Login = () => {
     }
   };
   return (
-    <div className='flex flex-col items-center justify-center h-screen'>
+    <div className='flex flex-col items-center justify-center min-h-screen'>
       <h1 className='text-3xl font-bold mb-6'>Login</h1>
       <div className='flex flex-col space-y-4'>
         <div className='flex items-center border rounded-md px-4 py-2'>

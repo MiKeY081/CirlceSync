@@ -5,12 +5,13 @@ export const SearchContext = createContext();
 
 export const SearchContextProvider = ({ children }) => {
   const [user, setUser] = useState();
+  const [search, setSearch] = useState();
   useEffect(() => {
     handleFetchAllProfiles(setUser);
   }, []);
   console.log(user);
   return (
-    <SearchContext.Provider value={{ user, setUser }}>
+    <SearchContext.Provider value={{ user, setUser, search, setSearch }}>
       {children}
     </SearchContext.Provider>
   );

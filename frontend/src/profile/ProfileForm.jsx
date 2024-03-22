@@ -109,7 +109,7 @@ const ProfileForm = ({ user }) => {
   };
 
   return (
-    <div className='flex flex-col items-center'>
+    <div className='flex flex-col items-center min-h-screen'>
       <h2 className='text-2xl font-bold mb-4'>Profile Form</h2>
       <form onSubmit={handleSubmit} className='w-64'>
         <div className='mb-4'>
