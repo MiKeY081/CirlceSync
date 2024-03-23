@@ -37,7 +37,7 @@ const Follow = ({ followerId, followingId }) => {
         setIsFollowing(true);
         toast.success("Followed");
       } else {
-        toast.error("Something went wrong!");
+        toast.error(data.message);
       }
     } catch (error) {
       toast.error("Something went wrong!" + error.message);
@@ -56,7 +56,7 @@ const Follow = ({ followerId, followingId }) => {
         setIsFollowing(false);
         toast.success("Unfollowed");
       } else {
-        toast.error("Something went wrong!");
+        toast.error(data.message);
       }
     } catch (error) {
       toast.error("Something went wrong!" + error.message);

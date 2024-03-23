@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { UserContext } from "../../Context/UserContext";
-import { Link } from "react-router-dom";
 import { FiCamera } from "react-icons/fi";
 import { FaUserCircle } from "react-icons/fa"; // Import the UserCircle icon
 
@@ -19,14 +18,17 @@ const CreatePostTouch = ({ placeholder }) => {
         ) : (
           <FaUserCircle className='w-10 h-10 text-gray-500 mr-3' />
         )}
-        <Link to='/post/create' className='flex items-center'>
+        <div className='flex items-center'>
           <FiCamera className='text-gray-500 mr-2' />
+          <label htmlFor='' className='text-gray-500 cursor-pointer'>
+            {placeholder ? placeholder : "What's on your mind?"}
+          </label>
           <input
-            type='text'
+            type='hidden'
             placeholder={placeholder ? placeholder : "What's on your mind?"}
             className='bg-transparent focus:outline-none flex-grow'
           />
-        </Link>
+        </div>
       </div>
     )
   );

@@ -1,25 +1,33 @@
-import axios from "axios";
 import React, { useState } from "react";
+import { FaTimes } from "react-icons/fa";
+import { FiImage } from "react-icons/fi";
+import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { FiImage } from "react-icons/fi";
 import { handleImageUpload } from "../assets/Functions/ImageHandler";
+import CreatePostTouch from "./Widget/CreatePostTouch";
 
 const PostForm = ({ post, placeholder }) => {
   const [caption, setCaption] = useState(post?.caption || "");
   const [images, setImages] = useState(post?.images || []);
   const [isLoading, setIsLoading] = useState(false);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!id) {
-      handleCreatePost(caption, images);
+      await handleCreatePost();
     } else {
-      handleEditPost(id, caption, images);
+      await handleEditPost();
     }
+    setCaption("");
+    setImages("");
+    togglePopover();
   };
+
   const handleCreatePost = async () => {
     try {
       const { data } = await axios.post("/post/create", { caption, images });
@@ -33,6 +41,7 @@ const PostForm = ({ post, placeholder }) => {
       console.log(error);
     }
   };
+
   const handleEditPost = async () => {
     try {
       const { data } = await axios.put(`/post/update/${id}`, {
@@ -51,48 +60,80 @@ const PostForm = ({ post, placeholder }) => {
     }
   };
 
+  const togglePopover = () => {
+    setIsPopoverOpen(!isPopoverOpen);
+  };
+
   return (
-    <form onSubmit={handleSubmit} className='max-w-md mx-auto'>
-      <div className='mb-6'>
-        <label htmlFor='caption' className='block text-gray-700 font-bold mb-2'>
-          Caption
-        </label>
-        <input
-          type='text'
-          id='caption'
-          value={caption}
-          placeholder={placeholder ? placeholder : "What's on your mind!"}
-          onChange={(e) => setCaption(e.target.value)}
-          className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
-        />
-      </div>
-      <div className='mb-6'>
-        <label htmlFor='image' className='block text-gray-700 font-bold mb-2'>
-          Image Upload
-        </label>
-        <div className='flex items-center'>
-          <input
-            type='file'
-            id='image'
-            onChange={(e) => handleImageUpload(e,setIsLoading, setImages)}
-            className='hidden'
-            accept='image/*'
-          />
-          <label
-            htmlFor='image'
-            className='cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md inline-flex items-center'
-          >
-            <FiImage className='mr-2' /> Upload Image
-          </label>
-        </div>
-      </div>
-      <button
-        type='submit'
-        className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+    <>
+      <div
+        className='max-w-md mx-auto z-10 cursor-pointer'
+        onClick={(e) => togglePopover(e)}
       >
-        Submit
-      </button>
-    </form>
+        <CreatePostTouch />
+      </div>
+      {isPopoverOpen && (
+        <div className='absolute w-full max-w-md mx-auto flex justify-center items-center z-20'>
+          <div className='relative bg-white border border-gray-300 rounded shadow-lg p-6'>
+            <FaTimes
+              className='absolute top-0 right-0 m-2 text-gray-500 cursor-pointer hover:text-gray-700'
+              onClick={togglePopover}
+            />
+            <form onSubmit={handleSubmit}>
+              <div className='mb-6'>
+                <label
+                  htmlFor='caption'
+                  className='block text-gray-700 font-bold mb-2'
+                >
+                  Caption
+                </label>
+                <input
+                  type='text'
+                  id='caption'
+                  value={caption}
+                  placeholder={
+                    placeholder ? placeholder : "What's on your mind!"
+                  }
+                  onChange={(e) => setCaption(e.target.value)}
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500'
+                />
+              </div>
+              <div className='mb-6'>
+                <label
+                  htmlFor='image'
+                  className='block text-gray-700 font-bold mb-2'
+                >
+                  Image Upload
+                </label>
+                <div className='flex items-center'>
+                  <input
+                    type='file'
+                    id='image'
+                    onChange={(e) =>
+                      handleImageUpload(e, setIsLoading, setImages)
+                    }
+                    className='hidden'
+                    accept='image/*'
+                  />
+                  <label
+                    htmlFor='image'
+                    className='cursor-pointer bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md inline-flex items-center'
+                  >
+                    <FiImage className='mr-2' /> Upload Image
+                  </label>
+                </div>
+              </div>
+              <button
+                type='submit'
+                className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded'
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

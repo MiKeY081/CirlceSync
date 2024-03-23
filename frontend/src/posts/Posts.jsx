@@ -3,6 +3,7 @@ import PostCard from "../components/PostCard";
 import axios from "axios";
 import { toast } from "react-toastify";
 import CreatePostTouch from "./Widget/CreatePostTouch";
+import PostForm from "./PostForm";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -39,7 +40,7 @@ const Posts = () => {
       </div>
 
       <div className='w-1/2'>
-        <CreatePostTouch />
+        <PostForm className='relative' />
         {loading && <p className='text-center'>Loading...</p>}
         {!loading && posts.length === 0 && (
           <p className='text-center'>No posts found.</p>
