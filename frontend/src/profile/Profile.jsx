@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import PostCard from "../components/PostCard";
-import CreatePostTouch from "../posts/Widget/CreatePostTouch";
 import UserInfo from "./Widgets/UserInfo";
 import { useParams } from "react-router-dom";
+import PostForm from "../posts/PostForm";
 
 const Profile = ({ owner }) => {
   const paramId = useParams();
@@ -22,11 +22,11 @@ const Profile = ({ owner }) => {
           <div className='py-4 px-6'>
             <h1 className='text-xl font-semibold'>Posts</h1>
             {paramId.id ? (
-              <CreatePostTouch
+              <PostForm
                 placeholder={`Write something on ${owner.name}'s timeline`}
               />
             ) : (
-              <CreatePostTouch placeholder='Write something on your timeline' />
+              <PostForm placeholder='Write something on your timeline' />
             )}
           </div>
           <div className='flex flex-col gap-4 items-center'>

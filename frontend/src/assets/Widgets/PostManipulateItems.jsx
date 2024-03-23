@@ -8,6 +8,7 @@ import Divider from "@mui/material/Divider";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
+import PostForm from "../../posts/PostForm";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -52,8 +53,9 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-export default function PostManipulateItems({ id }) {
+export default function PostManipulateItems({ id, post }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [isEditFormOpen, setIsEditFormOpen] = React.useState(false);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -63,38 +65,51 @@ export default function PostManipulateItems({ id }) {
   };
 
   return (
-    <div>
-      <IconButton
-        aria-label='more'
-        id='long-button'
-        aria-controls={open ? "long-menu" : undefined}
-        aria-expanded={open ? "true" : undefined}
-        aria-haspopup='true'
-        onClick={handleClick}
-      >
-        <MoreVertIcon />
-      </IconButton>
-      <StyledMenu
-        id='demo-customized-menu'
-        MenuListProps={{
-          "aria-labelledby": "demo-customized-button",
-        }}
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleClose} disableRipple>
-          <EditIcon />
-          <Link to={`/post/edit/${id}`}>Edit Post</Link>
-        </MenuItem>
+    <div className='flex flex-col gap-4'>
+      <div>
+        <IconButton
+          aria-label='more'
+          id='long-button'
+          aria-controls={open ? "long-menu" : undefined}
+          aria-expanded={open ? "true" : undefined}
+          aria-haspopup='true'
+          onClick={handleClick}
+        >
+          <MoreVertIcon />
+        </IconButton>
+        <StyledMenu
+          id='demo-customized-menu'
+          MenuListProps={{
+            "aria-labelledby": "demo-customized-button",
+          }}
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+        >
+          <MenuItem
+            onClick={(e) => {
+              setIsEditFormOpen(!isEditFormOpen);
+              handleClose();
+            }}
+            disableRipple
+          >
+            <EditIcon />
+            Edit Post
+          </MenuItem>
 
-        <Divider sx={{ my: 0.5 }} />
-        <MenuItem onClick={handleClose} disableRipple>
-          <ArchiveIcon />
-          <div onClick={(e) => handleDeletePost(id)}>Archive</div>
-        </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple></MenuItem>
-      </StyledMenu>
+          <Divider sx={{ my: 0.5 }} />
+          <MenuItem onClick={handleClose} disableRipple>
+            <ArchiveIcon />
+            <div onClick={(e) => handleDeletePost(id)}>Archive</div>
+          </MenuItem>
+          <MenuItem onClick={handleClose} disableRipple></MenuItem>
+        </StyledMenu>
+      </div>
+      {isEditFormOpen && (
+        <div className='relative z-50 -left-[450px]'>
+          <PostForm post={post} />
+        </div>
+      )}
     </div>
   );
 }

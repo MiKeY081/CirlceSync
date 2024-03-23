@@ -75,7 +75,7 @@ const PostOwnerTab = ({ owner, post }) => {
           </div>
         </div>
         {post && post?.userId === user?.id ? (
-          user?.id && <PostManipulateItems id={post.id} />
+          user?.id && <PostManipulateItems id={post.id} post={post} />
         ) : (
           <Follow followerId={user?.id} followingId={post?.userId} />
         )}

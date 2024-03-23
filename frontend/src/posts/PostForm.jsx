@@ -11,8 +11,8 @@ const PostForm = ({ post, placeholder }) => {
   const [caption, setCaption] = useState(post?.caption || "");
   const [images, setImages] = useState(post?.images || []);
   const [isLoading, setIsLoading] = useState(false);
-  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-  const { id } = useParams();
+  const [isPopoverOpen, setIsPopoverOpen] = useState(post?.id ? true : false);
+  const id = post?.id || "";
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -65,21 +65,23 @@ const PostForm = ({ post, placeholder }) => {
   };
 
   return (
-    <>
-      <div
-        className='max-w-md mx-auto z-10 cursor-pointer'
-        onClick={(e) => togglePopover(e)}
-      >
-        <CreatePostTouch />
-      </div>
+    <div className='min-w-full'>
+      {!post?.id && (
+        <div
+          className='w-full mx-auto  z-10 cursor-pointer'
+          onClick={(e) => togglePopover(e)}
+        >
+          <CreatePostTouch placeholder={placeholder} />
+        </div>
+      )}
       {isPopoverOpen && (
-        <div className='absolute w-full max-w-md mx-auto flex justify-center items-center z-20'>
-          <div className='relative bg-white border border-gray-300 rounded shadow-lg p-6'>
+        <div className='absolute min-w-[500px] py-10 mx-auto flex justify-center items-center z-20'>
+          <div className='relative bg-white border border-gray-300 rounded shadow-lg  p-10 w-full h-full'>
             <FaTimes
               className='absolute top-0 right-0 m-2 text-gray-500 cursor-pointer hover:text-gray-700'
               onClick={togglePopover}
             />
-            <form onSubmit={handleSubmit}>
+            <form className='w-full h-full' onSubmit={handleSubmit}>
               <div className='mb-6'>
                 <label
                   htmlFor='caption'
@@ -133,7 +135,7 @@ const PostForm = ({ post, placeholder }) => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

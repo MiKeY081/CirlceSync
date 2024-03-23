@@ -20,7 +20,7 @@ const App = () => {
     <>
       <Routes>
         <Route element={<Layout />}>
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<Posts />} />
           <Route path='/posts' element={<Posts />} />
           <Route path='/post/:postId' element={<Post />} />
           {user ? (

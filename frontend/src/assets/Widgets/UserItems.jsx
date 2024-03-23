@@ -3,7 +3,12 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { handlelogout } from "../../Api/ApiReqest";
-import { AiFillProfile, AiOutlineUser } from "react-icons/ai";
+import {
+  AiFillProfile,
+  AiOutlineLogin,
+  AiOutlineLogout,
+  AiOutlineUser,
+} from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
 
@@ -39,14 +44,25 @@ export default function BasicMenu() {
         }}
       >
         <MenuItem onClick={handleClose}>
-          <Link to={"/profile"}>Profile</Link>
+          <Link to={"/profile"} className='flex items-center gap-3'>
+            <AiOutlineUser /> Profile
+          </Link>
         </MenuItem>
         <MenuItem onClick={handleClose}></MenuItem>
         <MenuItem onClick={handleClose}>
           {user?.id ? (
-            <div onClick={(e) => handlelogout()}>Logout</div>
+            <Link
+              to={"/posts"}
+              onClick={(e) => handlelogout()}
+              className='flex items-center gap-3'
+            >
+              <AiOutlineLogout />
+              Logout
+            </Link>
           ) : (
-            <Link to={"/user/login"}>Login</Link>
+            <Link to={"/user/login"} className='flex items-center gap-3'>
+              <AiOutlineLogin /> Login
+            </Link>
           )}
         </MenuItem>
       </Menu>
