@@ -9,7 +9,6 @@ export const SearchContextProvider = ({ children }) => {
   useEffect(() => {
     handleFetchAllProfiles(setUser);
   }, []);
-  console.log(user);
   return (
     <SearchContext.Provider value={{ user, setUser, search, setSearch }}>
       {children}

@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FiUserPlus } from "react-icons/fi";
 import { FaUserCircle } from "react-icons/fa"; // UserAvatar using React Icons
 import { useNavigate } from "react-router-dom";
 import { calculateDateTime } from "../assets/Functions/DateFunctions";
 import PostManipulateItems from "../assets/Widgets/PostManipulateItems";
-import { UserContext } from "../Context/UserContext";
+import Follow from "../profile/Widgets/Follow";
 
 const UserAvatar = () => {
   return <FaUserCircle className='text-gray-500 text-4xl' />;
@@ -44,7 +43,6 @@ const PostOwnerTab = ({ user, post, client }) => {
     const revealDate = calculateDateTime(createdDate);
     setRevealDate(revealDate);
   }, []);
-  console.log(revealDate);
   return (
     user && (
       <div className='flex items-center justify-between cursor-pointer p-2 border-b border-gray-200 hover:bg-gray-100 transition duration-300 ease-in-out'>
@@ -77,10 +75,7 @@ const PostOwnerTab = ({ user, post, client }) => {
         {post && post?.userId === client?.id ? (
           client?.id && <PostManipulateItems id={post.id} />
         ) : (
-          <button className='flex items-center px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300 ease-in-out'>
-            <FiUserPlus className='inline mr-1' />
-            Follow
-          </button>
+          <Follow followerId={client?.id} followingId={post?.userId} />
         )}
       </div>
     )

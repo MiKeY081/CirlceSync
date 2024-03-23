@@ -7,8 +7,6 @@ import {
   FaCalendar,
 } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
-import { toast } from "react-toastify";
 import { FormatedDate } from "../../assets/Functions/DateFunctions";
 import { UserContext } from "../../Context/UserContext";
 import Follow from "./Follow";
@@ -18,23 +16,6 @@ const UserInfo = ({ owner }) => {
   const paramId = useParams();
   const joinedDate = new Date(owner?.createdAt);
   const { user } = useContext(UserContext);
-
-  useEffect(() => {
-    handleGetFollowers(owner?.id);
-  }, []);
-
-  const [followers, setFollowers] = useState();
-
-  const handleGetFollowers = async (id) => {
-    try {
-      const { data } = await axios.get(`/followers/${id}`);
-      if (data.success) {
-        setFollowers(data.followers);
-      }
-    } catch (error) {
-      toast.error("Internal Server error" + error.message);
-    }
-  };
 
   return (
     owner && (
@@ -76,7 +57,7 @@ const UserInfo = ({ owner }) => {
           </div>
 
           <div className='flex justify-between px-4 py-2 '>
-            <FollowersPanel followers={followers} />
+            <FollowersPanel />
 
             {!paramId?.id ? (
               <Link
@@ -87,11 +68,7 @@ const UserInfo = ({ owner }) => {
                 Edit Profile
               </Link>
             ) : (
-              <Follow
-                followingId={owner?.id}
-                followerId={user?.id}
-                followers={followers}
-              />
+              <Follow followingId={owner?.id} followerId={user?.id} />
             )}
           </div>
         </div>

@@ -157,7 +157,6 @@ const handleFetchAllProfiles = async (setUsers) => {
   try {
     const { data } = await axios.get("/user/getUsers");
     if (data.success) {
-      toast.success(data.message);
       setUsers(data.users);
     } else {
       toast.error(data.message);
@@ -171,7 +170,6 @@ const handleUserProfile = async (setUser) => {
   try {
     const { data } = await axios.get(`/user/getUser`);
     if (data.success) {
-      toast.success(data.message);
       setUser(data.user);
     } else {
       toast.error(data.message);

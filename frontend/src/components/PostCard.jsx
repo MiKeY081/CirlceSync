@@ -72,7 +72,6 @@ const PostCard = ({ post, setPosts }) => {
   const handleShare = (id) => {
     console.log("Share", id);
   };
-  console.log(post);
 
   return (
     post && (

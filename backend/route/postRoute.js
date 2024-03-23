@@ -11,7 +11,7 @@ import { isSignedIn } from "../middleware/userMiddleware.js";
 
 const router = Router();
 
-router.get("/post/getposts", isSignedIn, getPosts);
+router.get("/post/getposts", getPosts);
 router.post("/post/create", isSignedIn, createPost);
 router.put("/post/update/:id", isSignedIn, updatePost);
 router.delete("/post/delete/:id", isSignedIn, deletePost);

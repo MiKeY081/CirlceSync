@@ -26,7 +26,7 @@ const FollowersPanel = ({ followers }) => {
             <FaTimes />
           </button>
           {followers?.length !== 0 ? (
-            followers.map((follower, index) => (
+            followers?.map((follower, index) => (
               <UserTab key={index} user={follower} />
             ))
           ) : (

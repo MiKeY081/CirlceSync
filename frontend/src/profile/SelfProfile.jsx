@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
-import { UserContext } from "../Context/UserContext";
+import React, { useEffect, useState } from "react";
 import Profile from "./Profile";
+import { handleUserProfile } from "../Api/ApiReqest";
 
 const SelfProfile = () => {
-  const { user } = useContext(UserContext);
-
-  console.log(user);
+  const [user, setUser] = useState();
+  useEffect(() => {
+    handleUserProfile(setUser);
+  }, []);
   return (
     user && (
       <div className='min-h-screen min-w-2/3'>
