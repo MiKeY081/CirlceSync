@@ -138,22 +138,19 @@ const updateUser = async (req, res) => {
   }
 };
 
-const logout = (req, res) => {
+const logout = async (req, res) => {
   try {
-    res
-      .clearCookie("token", {
-        httpOnly: true,
-        sameSite: "none",
-      })
-      .json({
-        success: true,
-        message: "Logout Successful!",
-      });
+    return res.status(200).cookie("token", "").send({
+      success: true,
+      message: "Logout successfully",
+      user: {},
+    });
   } catch (error) {
-    console.error("Logout Error:", error);
-    res.status(500).json({
+    console.log(error.message);
+    return res.status(500).send({
       success: false,
-      message: "Internal Server Error",
+      message: "Internal server error",
+      error: error.message,
     });
   }
 };
