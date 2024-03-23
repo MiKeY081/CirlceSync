@@ -1,10 +1,10 @@
-import { prisma } from "../prismaconfig/config";
+import { prisma } from "../prismaconfig/config.js";
 
 const addFollower = async (req, res) => {
   try {
     const { followerId, followingId } = req.body;
 
-    const newFollow = await prisma.follow.create({
+    const newFollow = await prisma.follower.create({
       data: {
         follower: { connect: { id: followerId } },
         following: { connect: { id: followingId } },
@@ -28,7 +28,7 @@ const getFollowers = async (req, res) => {
   try {
     const { userId } = req.params;
 
-    const followers = await prisma.follow.findMany({
+    const followers = await prisma.follower.findMany({
       where: {
         following: {
           id: userId,
@@ -38,8 +38,8 @@ const getFollowers = async (req, res) => {
 
     res.send({
       success: true,
-      data: followers,
       message: "Followers fetched successfully",
+      followers,
     });
   } catch (error) {
     res.status(500).send({
@@ -53,7 +53,7 @@ const deleteFollower = async (req, res) => {
   try {
     const { followerId, followingId } = req.body;
 
-    await prisma.follow.deleteMany({
+    await prisma.follower.deleteMany({
       where: {
         followerId,
         followingId,

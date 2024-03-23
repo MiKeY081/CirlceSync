@@ -28,7 +28,7 @@ const LoadProfile = () => {
   return (
     user && (
       <div className='min-h-screen min-w-2/3'>
-        <Profile user={user} profileParamsId={id} />
+        <Profile owner={user} profileParamsId={id} />
       </div>
     )
   );
