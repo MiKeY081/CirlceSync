@@ -23,12 +23,14 @@ model User {
   phone    String?
   address  String?
   dob      DateTime?
-  follower String[]  @db.ObjectId
-  Post     Post[]
-  Comment  Comment[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  Post    Post[]
+  Comment Comment[]
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  follower  Follower[] @relation("follower")
+  following Follower[] @relation("following")
 }
 
 model Post {
@@ -60,11 +62,13 @@ model Comment {
   Post Post? @relation(fields: [postId], references: [id])
 }
 
-model Follow {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
-  follower String[] @db.ObjectId
-  owner    String?  @db.ObjectId
+model Follower {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  follower    User     @relation("follower", fields: [followerId], references: [id])
+  following   User     @relation("following", fields: [followingId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  followerId  String   @db.ObjectId
+  followingId String   @db.ObjectId
 }
