@@ -1,6 +1,6 @@
 import React from "react";
 import { FaEnvelope, FaUser, FaPhone, FaCalendar } from "react-icons/fa"; // Import font awesome icons
-import { FormatedDate } from "../../assets/Functions/DateFunctions";
+import { FormattedDate } from "../../assets/Functions/DateFunctions";
 
 const About = ({ owner, joinedDate }) => {
   return (
@@ -29,7 +29,7 @@ const About = ({ owner, joinedDate }) => {
       <div className='py-4 px-6'>
         <p className='text-gray-700 flex items-center'>
           <FaCalendar className='mr-2' />
-          {"Joined At " + FormatedDate(joinedDate)}{" "}
+          {"Joined At " + FormattedDate(joinedDate)}{" "}
         </p>
       </div>
     </div>

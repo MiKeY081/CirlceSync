@@ -14,12 +14,9 @@ const Profile = ({ owner }) => {
   useEffect(() => {
     if (owner) {
       setPosts(owner.Post);
+      handleGetFollowers();
     }
   }, [owner]);
-
-  useEffect(() => {
-    handleGetFollowers();
-  }, []);
 
   const handleGetFollowers = async () => {
     try {

@@ -12,21 +12,18 @@ export function calculateDateTime(createdDate) {
       month: "long",
       day: "numeric",
     }).format(createdDate);
+  } else if (daysDifference === 1) {
+    // Exactly 1 day difference, show "Yesterday" with time
+    revealDate = `Yesterday at ${createdDate.toLocaleTimeString("en-US")}`;
   } else if (createdDate.getMonth() !== currentDate.getMonth()) {
     // Within the same month, format as month and day
     revealDate = new Intl.DateTimeFormat("en-US", {
       month: "long",
       day: "numeric",
     }).format(createdDate);
-  } else if (daysDifference > 1) {
-    // More than 5 days difference, show days ago with time
-    revealDate = `${daysDifference} days ago at ${createdDate.toLocaleTimeString(
-      "en-US"
-    )}`;
-  } else if (daysDifference < 1 && timeDifference / (1000 * 3600) >= 1) {
-    // Less than 1 day difference, show time ago
-    const hoursDifference = Math.floor(timeDifference / (1000 * 3600)); // Convert milliseconds to hours
-    revealDate = `${hoursDifference}hr ago`;
+  } else if (timeDifference / (1000 * 3600) >= 1) {
+    // Less than 24 hours difference, show time
+    revealDate = `${createdDate.toLocaleTimeString("en-US")}`;
   } else if (timeDifference / (1000 * 60) >= 1) {
     // Less than 1 hr difference, show time ago
     const minDifference = Math.floor(timeDifference / (1000 * 60));
@@ -39,10 +36,10 @@ export function calculateDateTime(createdDate) {
   return revealDate;
 }
 
-export const FormatedDate = (datetime) => {
-  const formatedDate = new Intl.DateTimeFormat("en-US", {
+export const FormattedDate = (datetime) => {
+  const formattedDate = new Intl.DateTimeFormat("en-US", {
     month: "long",
     day: "numeric",
   }).format(datetime);
-  return formatedDate;
+  return formattedDate;
 };

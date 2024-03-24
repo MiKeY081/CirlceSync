@@ -21,7 +21,7 @@ const UserInfo = ({ owner, followers }) => {
     owner && (
       <div className='flex justify-center items-center bg-gray-100 min-h-screen min-w-screen'>
         <div className='min-w-full max-w-lg bg-white shadow-md rounded-lg overflow-hidden'>
-          <div className='bg-blue-500 flex justify-center overflow-hidden relative px-10 py-2'>
+          <div className=' flex justify-center overflow-hidden relative px-10 py-2'>
             <img
               className='h-[400px] w-full object-cover  rounded-lg overflow-hidden'
               src={owner.image}
@@ -49,7 +49,7 @@ const UserInfo = ({ owner, followers }) => {
                   Edit Profile
                 </Link>
               ) : (
-                <Follow owner={owner} />
+                <Follow followingId={owner?.id} followerId={user?.id} />
               )}
             </div>
           </div>

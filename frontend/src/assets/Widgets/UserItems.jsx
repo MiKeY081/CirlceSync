@@ -22,7 +22,7 @@ export default function BasicMenu() {
     setAnchorEl(null);
   };
   const { user } = React.useContext(UserContext);
-
+  const id = user?.id;
   return (
     <div>
       <Button
@@ -44,7 +44,7 @@ export default function BasicMenu() {
         }}
       >
         <MenuItem onClick={handleClose}>
-          <Link to={"/profile"} className='flex items-center gap-3'>
+          <Link to={`profile/${id}`} className='flex items-center gap-3'>
             <AiOutlineUser /> Profile
           </Link>
         </MenuItem>
@@ -60,7 +60,7 @@ export default function BasicMenu() {
               Logout
             </Link>
           ) : (
-            <Link to={"/user/login"} className='flex items-center gap-3'>
+            <Link to={`/user/login`} className='flex items-center gap-3'>
               <AiOutlineLogin /> Login
             </Link>
           )}

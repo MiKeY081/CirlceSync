@@ -11,7 +11,6 @@ import Register from "./login/Register";
 import NotFound from "./NotFound";
 import PostForm from "./posts/PostForm";
 import LoadProfile from "./profile/LoadProfile";
-import SelfProfile from "./profile/SelfProfile";
 import { UserContext } from "./Context/UserContext";
 
 const App = () => {
@@ -27,7 +26,6 @@ const App = () => {
             <>
               <Route path='/post/create' element={<PostForm />} />
               <Route path='/post/edit/:id' element={<EditPost />} />
-              <Route path='/profile' element={<SelfProfile />} />
               <Route path='/profile/edit' element={<EditProfile />} />
             </>
           ) : (

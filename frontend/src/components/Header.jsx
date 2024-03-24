@@ -8,7 +8,6 @@ import UserItems from "../assets/Widgets/UserItems";
 
 const Header = () => {
   const { user, search, setSearch } = useContext(SearchContext);
-
   const searchedUser = user?.filter((user) => {
     if (search) return user.name.toLowerCase().includes(search.toLowerCase());
   });
