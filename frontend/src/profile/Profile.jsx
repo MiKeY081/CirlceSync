@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import PostCard from "../components/PostCard";
 import UserInfo from "./Widgets/UserInfo";
 import { useParams } from "react-router-dom";
-import PostForm from "../posts/PostForm";
+import UserPosts from "./UserPosts";
+import FollowersPanel from "./Widgets/FollowersPanel";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const Profile = ({ owner }) => {
   const paramId = useParams();
   const [posts, setPosts] = useState([]);
+  const [followers, setFollowers] = useState();
 
   useEffect(() => {
     if (owner) {
@@ -14,31 +17,32 @@ const Profile = ({ owner }) => {
     }
   }, [owner]);
 
+  useEffect(() => {
+    handleGetFollowers();
+  }, []);
+
+  const handleGetFollowers = async () => {
+    try {
+      const id = owner?.id;
+      const { data } = await axios.get(`/followers/${id}`);
+      if (data.success) {
+        setFollowers(data.followers);
+      }
+    } catch (error) {
+      toast.error("Internal Server error" + error.message);
+    }
+  };
+
   return (
     owner && (
-      <div className='flex justify-center items-center bg-gray-100 min-h-screen min-w-screen'>
-        <div className='w-full max-w-2xl bg-white shadow-md rounded-lg overflow-hidden'>
-          <UserInfo owner={owner} />
-          <div className='py-4 px-6'>
-            <h1 className='text-xl font-semibold'>Posts</h1>
-            {paramId.id ? (
-              <PostForm
-                placeholder={`Write something on ${owner.name}'s timeline`}
-              />
-            ) : (
-              <PostForm placeholder='Write something on your timeline' />
-            )}
-          </div>
-          <div className='flex flex-col gap-4 items-center'>
-            {posts.length === 0 ? (
-              <div className='py-4 px-6 w-full text-center'>
-                <h1 className='text-lg font-semibold'>No Posts</h1>
-              </div>
-            ) : (
-              posts.map((post, index) => (
-                <PostCard key={index} post={post} setPosts={setPosts} />
-              ))
-            )}
+      <div className='flex justify-center items-center  min-h-screen min-w-screen'>
+        <div className='min-w-full shadow-md rounded-lg overflow-hidden'>
+          <UserInfo owner={owner} followers={followers} />
+          <div className='flex min-h-screen min-w-screen px-20 py-8'>
+            <div className='flex flex-start w-1/2 relative '>
+              <FollowersPanel followers={followers} open={open} />
+            </div>
+            <UserPosts owner={owner} />
           </div>
         </div>
       </div>

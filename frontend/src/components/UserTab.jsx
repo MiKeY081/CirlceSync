@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { FaUserCircle } from "react-icons/fa"; // UserAvatar using React Icons
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../Context/SearchContext";
@@ -10,13 +10,15 @@ const UserAvatar = () => {
 const UserTab = ({ user }) => {
   const { setSearch } = useContext(SearchContext);
   const navigate = useNavigate();
+
   const handleClick = (id) => {
     navigate(`/profile/${id}`);
     setSearch("");
   };
+
   return (
     user && (
-      <div className='flex items-center justify-between cursor-pointer p-2 border-b border-gray-200 hover:bg-gray-700 hover:rounded transition duration-300 ease-in- w-full'>
+      <div className='flex items-center justify-between cursor-pointer p-2 border-b border-gray-200 hover:bg-gray-200 hover:rounded-lg transition duration-300 ease-in w-full'>
         <div
           className='flex items-center'
           onClick={() => handleClick(user?.id)}
@@ -34,7 +36,7 @@ const UserTab = ({ user }) => {
           </div>
           <div>
             {user && (
-              <h4 className='text-md font-semibold text-white mb-1'>
+              <h4 className='text-md font-semibold text-gray-800 hover:text-blue-600 mb-1'>
                 {user.name}
               </h4>
             )}

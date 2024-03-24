@@ -1,15 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import UserTab from "../../components/UserTab";
+import axios from "axios";
+import UserCard from "./UserCard";
 
-const FollowersPanel = ({ followers }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const FollowersPanel = ({ followers, open }) => {
+  const [isOpen, setIsOpen] = useState(open);
+  const [follower, setFollower] = useState([]);
 
   const toggleBox = () => {
     setIsOpen(!isOpen);
   };
 
-  return (
+  useEffect(() => {
+    const getUserById = async () => {
+      try {
+        const fetchedFollowers = [];
+        for (const follower of followers) {
+          const { data } = await axios.get(
+            `/user/getuser/${follower.followerId}`
+          );
+          if (data.success) {
+            fetchedFollowers.push(data.user);
+          }
+        }
+        setFollower(fetchedFollowers);
+      } catch (error) {
+        console.log("Error fetching followers:", error);
+      }
+    };
+
+    if (followers?.length > 0) {
+      getUserById();
+    }
+  }, [followers]);
+
+  return !open ? (
     <div className='relative'>
       <div
         className='bg-gray-200 px-4 py-2 rounded cursor-pointer hover:bg-gray-300'
@@ -25,15 +51,34 @@ const FollowersPanel = ({ followers }) => {
           >
             <FaTimes />
           </button>
-          {followers?.length !== 0 ? (
-            followers?.map((follower, index) => (
-              <UserTab key={index} user={follower} />
+          {follower?.length > 0 ? (
+            follower &&
+            follower.map((user, index) => (
+              <div>
+                <UserTab key={index} user={user} />
+              </div>
             ))
           ) : (
             <p className='px-4 text-gray-600'>No followers yet.</p>
           )}
         </div>
       )}
+    </div>
+  ) : (
+    <div className='flex flex-col'>
+      <h2>Followers</h2>
+      <div className='grid grid-cols-2 gap-8'>
+        {follower?.length > 0 ? (
+          follower &&
+          follower.map((user, index) => (
+            <div>
+              <UserCard key={index} user={user} />
+            </div>
+          ))
+        ) : (
+          <p className='px-4 text-gray-600'>No followers yet.</p>
+        )}
+      </div>
     </div>
   );
 };

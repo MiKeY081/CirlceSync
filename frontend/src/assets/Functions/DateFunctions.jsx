@@ -18,7 +18,7 @@ export function calculateDateTime(createdDate) {
       month: "long",
       day: "numeric",
     }).format(createdDate);
-  } else if (daysDifference > 5) {
+  } else if (daysDifference > 1) {
     // More than 5 days difference, show days ago with time
     revealDate = `${daysDifference} days ago at ${createdDate.toLocaleTimeString(
       "en-US"
