@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { handleImageUpload } from "../assets/Functions/ImageHandler";
 import CreatePostTouch from "./Widget/CreatePostTouch";
 
-const PostForm = ({ post, placeholder }) => {
+const PostForm = ({ post, placeholder, setPosts }) => {
   const [caption, setCaption] = useState(post?.caption || "");
   const [images, setImages] = useState(post?.images || []);
   const [isLoading, setIsLoading] = useState(false);
@@ -33,6 +33,7 @@ const PostForm = ({ post, placeholder }) => {
       const { data } = await axios.post("/post/create", { caption, images });
       if (data.success) {
         toast.success(data.message);
+        setPosts((prev) => [...prev, data.post]);
         navigate("/posts");
       } else {
         toast.error(data.message);
@@ -51,6 +52,9 @@ const PostForm = ({ post, placeholder }) => {
       });
       if (data.success) {
         toast.success(data.message);
+        setPosts((prev) => {
+          return prev.map((post) => (post.id === id ? data.post : post));
+        });
         navigate(`/posts`);
       } else {
         toast.error(data.message);

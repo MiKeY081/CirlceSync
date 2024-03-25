@@ -18,7 +18,7 @@ const FollowersPanel = ({ followers, open }) => {
         const fetchedFollowers = [];
         for (const follower of followers) {
           const { data } = await axios.get(
-            `/user/getuser/${follower.followerId}`
+            `/user/getuser/${follower?.followerId}`
           );
           if (data.success) {
             fetchedFollowers.push(data.user);

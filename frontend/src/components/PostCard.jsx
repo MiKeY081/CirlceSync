@@ -80,7 +80,7 @@ const PostCard = ({ post, setPosts }) => {
   return (
     post && (
       <div className='relative group w-5/6 rounded-lg overflow-hidden shadow-md bg-white hover:shadow-lg transition-all duration-300 mb-6 px-4'>
-        <PostOwnerTab owner={owner} post={post} />
+        <PostOwnerTab owner={owner} post={post} setPosts={setPosts} />
         {post.caption && (
           <h3 className='text-lg font-medium text-gray-900 my-3'>
             {post?.caption}

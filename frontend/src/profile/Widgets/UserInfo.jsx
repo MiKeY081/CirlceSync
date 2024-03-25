@@ -12,7 +12,7 @@ import Follow from "./Follow";
 import FollowersPanel from "./FollowersPanel";
 import About from "./About";
 
-const UserInfo = ({ owner, followers }) => {
+const UserInfo = ({ owner, followers, setFollowers }) => {
   const paramId = useParams();
   const joinedDate = new Date(owner?.createdAt);
   const { user } = useContext(UserContext);
@@ -49,7 +49,11 @@ const UserInfo = ({ owner, followers }) => {
                   Edit Profile
                 </Link>
               ) : (
-                <Follow followingId={owner?.id} followerId={user?.id} />
+                <Follow
+                  followingId={owner?.id}
+                  followerId={user?.id}
+                  setFollowersPanel={setFollowers}
+                />
               )}
             </div>
           </div>

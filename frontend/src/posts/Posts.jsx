@@ -40,7 +40,7 @@ const Posts = () => {
       </div>
 
       <div className='w-1/2'>
-        <PostForm className='relative' />
+        <PostForm className='relative' setPosts={setPosts} />
         {loading && <p className='text-center'>Loading...</p>}
         {!loading && posts.length === 0 && (
           <p className='text-center'>No posts found.</p>

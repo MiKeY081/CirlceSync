@@ -4,7 +4,7 @@ const addFollower = async (req, res) => {
   try {
     const { followerId, followingId } = req.body;
 
-    const newFollow = await prisma.follower.create({
+    const follow = await prisma.follower.create({
       data: {
         follower: { connect: { id: followerId } },
         following: { connect: { id: followingId } },
@@ -13,8 +13,8 @@ const addFollower = async (req, res) => {
 
     res.send({
       success: true,
-      data: newFollow,
       message: "Follower added successfully",
+      follow,
     });
   } catch (error) {
     res.status(500).send({
@@ -53,7 +53,7 @@ const deleteFollower = async (req, res) => {
   try {
     const { followerId, followingId } = req.body;
 
-    await prisma.follower.deleteMany({
+    const follow = await prisma.follower.deleteMany({
       where: {
         followerId,
         followingId,
@@ -63,6 +63,7 @@ const deleteFollower = async (req, res) => {
     res.send({
       success: true,
       message: "Follower deleted successfully",
+      follow,
     });
   } catch (error) {
     res.status(500).send({

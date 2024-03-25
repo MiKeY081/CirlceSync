@@ -53,7 +53,10 @@ export default function BasicMenu() {
           {user?.id ? (
             <Link
               to={"/posts"}
-              onClick={(e) => handlelogout()}
+              onClick={(e) => {
+                handlelogout();
+                user = null;
+              }}
               className='flex items-center gap-3'
             >
               <AiOutlineLogout />

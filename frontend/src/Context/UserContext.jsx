@@ -11,7 +11,9 @@ const UserContextProvider = ({ children }) => {
     handleUserProfile(setUser);
   }, []);
   return (
-    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ user, setUser }}>
+      {children}
+    </UserContext.Provider>
   );
 };
 

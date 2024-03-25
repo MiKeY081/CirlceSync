@@ -9,6 +9,7 @@ import ArchiveIcon from "@mui/icons-material/Archive";
 import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
 import PostForm from "../../posts/PostForm";
+import { handleDeletePost } from "../../Api/ApiReqest";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -53,7 +54,7 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-export default function PostManipulateItems({ id, post }) {
+export default function PostManipulateItems({ id, post, setPosts }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isEditFormOpen, setIsEditFormOpen] = React.useState(false);
   const open = Boolean(anchorEl);
@@ -62,6 +63,11 @@ export default function PostManipulateItems({ id, post }) {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleDelete = (id) => {
+    handleDeletePost(id);
+    setPosts((prev) => prev.filter((post) => post.id !== id));
   };
 
   return (
@@ -98,16 +104,22 @@ export default function PostManipulateItems({ id, post }) {
           </MenuItem>
 
           <Divider sx={{ my: 0.5 }} />
-          <MenuItem onClick={handleClose} disableRipple>
+          <MenuItem
+            onClick={(e) => {
+              handleDelete(id);
+              handleClose();
+            }}
+            disableRipple
+          >
             <ArchiveIcon />
-            <div onClick={(e) => handleDeletePost(id)}>Archive</div>
+            Archive
           </MenuItem>
           <MenuItem onClick={handleClose} disableRipple></MenuItem>
         </StyledMenu>
       </div>
       {isEditFormOpen && (
         <div className='relative z-50 -left-[450px]'>
-          <PostForm post={post} />
+          <PostForm post={post} setPosts={setPosts} />
         </div>
       )}
     </div>

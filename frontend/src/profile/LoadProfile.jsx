@@ -15,7 +15,6 @@ const LoadProfile = () => {
       if (id) {
         const { data } = await axios.get(`/user/getuser/${id}`);
         if (data.success) {
-          console.log("id found");
           setUser(data.user);
         }
       }
@@ -23,8 +22,6 @@ const LoadProfile = () => {
       console.log(error);
     }
   };
-
-  console.log(user);
   return (
     user && (
       <div className='min-h-screen min-w-2/3'>

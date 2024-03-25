@@ -3,7 +3,7 @@ import { FaUserPlus, FaUserMinus } from "react-icons/fa";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const Follow = ({ followerId, followingId }) => {
+const Follow = ({ followerId, followingId, setFollowersPanel }) => {
   const [isFollowing, setIsFollowing] = useState(false);
 
   const [followers, setFollowers] = useState();
@@ -36,6 +36,9 @@ const Follow = ({ followerId, followingId }) => {
       if (data.success) {
         setIsFollowing(true);
         toast.success("Followed");
+        if (setFollowersPanel) {
+          setFollowersPanel((prev) => [...prev, data.follow]);
+        }
       } else {
         toast.error(data.message);
       }
@@ -55,6 +58,11 @@ const Follow = ({ followerId, followingId }) => {
       if (data.success) {
         setIsFollowing(false);
         toast.success("Unfollowed");
+        if (setFollowersPanel) {
+          setFollowersPanel((prev) =>
+            prev.filter((obj) => obj.followerId !== followerId)
+          );
+        }
       } else {
         toast.error(data.message);
       }

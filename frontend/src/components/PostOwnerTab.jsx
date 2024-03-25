@@ -10,7 +10,7 @@ const UserAvatar = () => {
   return <FaUserCircle className='text-gray-500 text-4xl' />;
 };
 
-const PostOwnerTab = ({ owner, post }) => {
+const PostOwnerTab = ({ owner, post, setPosts }) => {
   const { user } = useContext(UserContext);
   const [revealDate, setRevealDate] = useState();
   const navigate = useNavigate();
@@ -18,28 +18,6 @@ const PostOwnerTab = ({ owner, post }) => {
     navigate(`/profile/${id}`);
   };
   const createdDate = new Date(post?.createdAt);
-
-  // if ((createdDate - currentDate) > 1) {
-  //   const formattedDate = new Intl.DateTimeFormat("en-US", {
-  //     year: "numeric",
-  //     month: "long",
-  //     day: "numeric",
-  //   }).format(date);
-  //   setRevealDate(formattedDate)
-  // } elseif((createdDate.getMonth() - currentDate.getMonth())>1){
-  //   const formattedDate = new Intl.DateTimeFormat("en-US", {
-  //     month: "long",
-  //     day: "numeric",
-  //   }).format(date);
-  //   setRevealDate(formattedDate)
-  // } elseif((createdDate.getDay() - currentDate.getDay()) > 5){
-
-  //   setRevealDate((createdDate.getDay() - currentDate.getDay())+ "days ago at" +createdDate.getTime())
-  // }
-  // } elseif((createdDate.getDay() - currentDate.getDay()) < 1){
-
-  //   setRevealDate(( createdDate.getTime()- currentDate.getTime())+ "ago")
-  // }
 
   useEffect(() => {
     const revealDate = calculateDateTime(createdDate);
@@ -75,7 +53,9 @@ const PostOwnerTab = ({ owner, post }) => {
           </div>
         </div>
         {post && post?.userId === user?.id ? (
-          user?.id && <PostManipulateItems id={post.id} post={post} />
+          user?.id && (
+            <PostManipulateItems id={post.id} post={post} setPosts={setPosts} />
+          )
         ) : (
           <Follow followerId={user?.id} followingId={post?.userId} />
         )}

@@ -235,6 +235,7 @@ const handleGetUserById = async (id) => {
 };
 
 const handlelogout = async () => {
+  
   try {
     const { data } = await axios.post("/user/logout");
     if (data.success) {

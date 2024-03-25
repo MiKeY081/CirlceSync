@@ -1,10 +1,12 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { RiMailLine, RiLockPasswordLine } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { UserContext } from "../Context/UserContext";
 
 const Login = () => {
+  const { setUser } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -15,6 +17,7 @@ const Login = () => {
       if (data.success) {
         toast.success(data.message);
         navigate("/");
+        setUser(data.user);
       } else {
         toast.error(data.message);
       }

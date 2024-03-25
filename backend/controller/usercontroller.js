@@ -191,6 +191,7 @@ const getUser = async (req, res) => {
       const user = await prisma.user.findUnique({
         where: { id },
         include: { Post: true },
+        include: { follower: true },
       });
 
       res.send({
