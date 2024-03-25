@@ -1,20 +1,16 @@
 import React, { useState } from "react";
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytesResumable,
-} from "firebase/storage";
 import { RiUserFill } from "react-icons/ri"; // Example icon from react-icons library
 import { toast } from "react-toastify";
-import { app } from "../config/firebase";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { handleSingleImageUpload } from "../assets/Functions/ImageHandler";
 
 const ProfileForm = ({ user }) => {
   const [name, setName] = useState(user?.name || "");
   const [email, setEmail] = useState(user?.email || "");
+  const [slang, setSlang] = useState(user?.slang || "");
   const [image, setImage] = useState(user?.image || "");
+  const [coverImage, setCoverImage] = useState(user?.coverimage || "");
   const [phone, setPhone] = useState(user?.phone || "");
   const [address, setAddress] = useState(user?.address || "");
   const [dob, setDob] = useState(user?.dob || "");
@@ -26,34 +22,21 @@ const ProfileForm = ({ user }) => {
     e.preventDefault();
     handleEditProfile();
   };
-  // const convertDateFormat = (e) => {
-  //   // Check if a date is selected
-  //   console.log(dob);
-  //   // Convert the selected date to a JavaScript Date object
-  //   const jsDate = new Date(dob);
-
-  //   // Format the date to match the datetime format in your database (ISO-8601)
-  //   const formattedDate = jsDate
-  //     .toLocaleString()
-  //     .slice(0, 19)
-  //     .replace("T", " ");
-  //   console.log(formattedDate);
-  //   // Update the state with the formatted date
-  //   setDob(formattedDate);
-  // };
 
   const handleEditProfile = async () => {
     try {
       const { data } = await axios.put(`/user/update`, {
         name,
         email,
+        slang,
         image,
+        coverImage,
         phone,
         address,
       });
       if (data.success) {
         toast.success(data.message);
-        navigate("/profile");
+        navigate(`/profile/${user?.id}`);
       } else {
         toast.error(data.message);
       }
@@ -63,49 +46,11 @@ const ProfileForm = ({ user }) => {
   };
 
   const handleImageUpload = async (e) => {
-    setIsLoading(true);
-    try {
-      toast.success("Uploading...");
-      for (let i = 0; i < e.target.files.length; i++) {
-        console.log(i);
-        const fbimage = e.target.files[i];
-        const storage = getStorage(app);
-        const fileName = new Date().getTime() + fbimage.name;
-        const storageRef = ref(storage, fileName);
+    await handleSingleImageUpload(e, setIsLoading, setImage);
+  };
 
-        const uploadTask = uploadBytesResumable(storageRef, fbimage);
-
-        // Listen for state changes (including errors)
-        uploadTask.on("state_changed", (snapshot) => {
-          const progress = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
-
-          console.log("progress is", progress);
-
-          if (snapshot.error) {
-            console.error(snapshot.error.message);
-            toast.error("Image upload failed. Try again");
-          }
-        });
-
-        // Wait for the upload to complete before getting the URL
-        await uploadTask;
-
-        // Now it's safe to call getDownloadURL
-        const imageUrl = await getDownloadURL(storageRef);
-
-        console.log(imageUrl);
-        // Update image list with new URL
-        setImage(imageUrl);
-        toast.success("Image uploaded successfully");
-      }
-    } catch (error) {
-      console.error(error.message);
-      toast.error("Image upload failed. Try again");
-    } finally {
-      setIsLoading(false);
-    }
+  const handleCoverImageUpload = async (e) => {
+    await handleSingleImageUpload(e, setIsLoading, setCoverImage);
   };
 
   return (
@@ -137,6 +82,18 @@ const ProfileForm = ({ user }) => {
           />
         </div>
         <div className='mb-4'>
+          <label htmlFor='name' className='block mb-2'>
+            Slang
+          </label>
+          <input
+            type='text'
+            id='name'
+            value={slang}
+            onChange={(e) => setSlang(e.target.value)}
+            className='w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500'
+          />
+        </div>
+        <div className='mb-4'>
           <label htmlFor='image' className='block mb-2'>
             Image
           </label>
@@ -144,6 +101,17 @@ const ProfileForm = ({ user }) => {
             type='file'
             id='image'
             onChange={(e) => handleImageUpload(e)}
+            className='w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500'
+          />
+        </div>
+        <div className='mb-4'>
+          <label htmlFor='image' className='block mb-2'>
+            Cover Image
+          </label>
+          <input
+            type='file'
+            id='image'
+            onChange={(e) => handleCoverImageUpload(e)}
             className='w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500'
           />
         </div>

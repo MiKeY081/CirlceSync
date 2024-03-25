@@ -43,3 +43,18 @@ export const FormattedDate = (datetime) => {
   }).format(datetime);
   return formattedDate;
 };
+
+// const convertDateFormat = (e) => {
+//   // Check if a date is selected
+//   console.log(dob);
+//   // Convert the selected date to a JavaScript Date object
+//   const jsDate = new Date(dob);
+
+//   // Format the date to match the datetime format in your database (ISO-8601)
+//   const formattedDate = jsDate
+//     .slice(0, 19)
+//     .replace("T", " ");
+//   console.log(formattedDate);
+//   // Update the state with the formatted date
+//   setDob(formattedDate);
+// };

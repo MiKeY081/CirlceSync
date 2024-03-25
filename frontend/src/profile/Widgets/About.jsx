@@ -11,6 +11,18 @@ const About = ({ owner, joinedDate }) => {
       <div className='py-4 px-6'>
         <p className='text-gray-700 flex items-center'>
           <FaEnvelope className='mr-2' />
+          {owner.name}
+        </p>
+      </div>
+      <div className='py-4 px-6'>
+        <p className='text-gray-700 flex items-center'>
+          <FaEnvelope className='mr-2' />
+          {owner.slang}
+        </p>
+      </div>
+      <div className='py-4 px-6'>
+        <p className='text-gray-700 flex items-center'>
+          <FaEnvelope className='mr-2' />
           {owner.email}
         </p>
       </div>

@@ -24,7 +24,7 @@ const UserInfo = ({ owner, followers, setFollowers }) => {
           <div className=' flex justify-center overflow-hidden relative px-10 py-2'>
             <img
               className='h-[400px] w-full object-cover  rounded-lg overflow-hidden'
-              src={owner.image}
+              src={owner.coverImage ? owner.coverImage : owner.image}
               alt='Profile'
             />
           </div>

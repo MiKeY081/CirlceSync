@@ -1,4 +1,5 @@
 import { prisma } from "../prismaconfig/config.js";
+import { sendNofication } from "./notificationController.js";
 
 const addFollower = async (req, res) => {
   try {
@@ -10,11 +11,17 @@ const addFollower = async (req, res) => {
         following: { connect: { id: followingId } },
       },
     });
-
+    const notification = await sendNofication(
+      "follow",
+      "started following you",
+      followingId,
+      followerId
+    );
     res.send({
       success: true,
       message: "Follower added successfully",
       follow,
+      notification,
     });
   } catch (error) {
     res.status(500).send({

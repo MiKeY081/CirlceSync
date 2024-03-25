@@ -5,6 +5,7 @@ import { SearchContext } from "../Context/SearchContext";
 import UserTab from "./UserTab";
 import { Link } from "react-router-dom";
 import UserItems from "../assets/Widgets/UserItems";
+import NotificationDropdown from "./NotificationDropdown";
 
 const Header = () => {
   const { user, search, setSearch } = useContext(SearchContext);
@@ -30,7 +31,7 @@ const Header = () => {
         <div className='mr-4 transition duration-300 hover:text-gray-300'>
           <RiSearchLine className='h-6 w-6' />
         </div>
-        <AiOutlineBell className='w-6 h-6 mr-4 transition duration-300 hover:text-gray-300' />
+        <NotificationDropdown className=' mr-4 transition duration-300 hover:text-gray-300' />
         <UserItems />
       </div>
       {search && searchedUser && (

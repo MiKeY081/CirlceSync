@@ -38,36 +38,38 @@ const FollowersPanel = ({ followers, open }) => {
   return !open ? (
     <div className='relative'>
       <div
-        className='bg-gray-200 px-4 py-2 rounded cursor-pointer hover:bg-gray-300 flex items-center justify-between'
+        className='bg-gray-200 px-4 py-2 rounded cursor-pointer hover:bg-gray-300 flex items-center justify-between transition duration-300 '
         onClick={toggleBox}
       >
         <span className='text-gray-800'>{followers?.length} Followers</span>
         <FaUserFriends className='text-gray-600 ml-2' />
       </div>
       {isOpen && (
-        <div className='absolute top-full left-0 w-64 bg-white border border-gray-300 rounded shadow-lg py-2 z-10'>
+        <div className='absolute top-full left-0 w-full max-w-xs bg-white border border-gray-300 rounded shadow-lg py-4 z-10'>
           <button
-            className='absolute top-0 right-0 mr-2 mt-2 text-gray-600 hover:text-gray-800'
+            className='absolute top-0 right-0 mr-2 mt-2 text-gray-600 hover:text-gray-800 transition duration-300'
             onClick={toggleBox}
           >
             <FaTimes />
           </button>
-          {follower?.length > 0 ? (
-            follower.map((user, index) => <UserTab key={index} user={user} />)
-          ) : (
-            <p className='px-4 text-gray-600'>No followers yet.</p>
-          )}
+          <div className='p-2 '>
+            {follower?.length > 0 ? (
+              follower.map((user, index) => <UserTab key={index} user={user} />)
+            ) : (
+              <p className='text-gray-600'>No followers yet.</p>
+            )}
+          </div>
         </div>
       )}
     </div>
   ) : (
     <div className='flex flex-col'>
       <h2 className='text-2xl font-bold mb-4'>Followers</h2>
-      <div className='grid grid-cols-2 gap-8'>
+      <div className='grid grid-cols-2 gap-4'>
         {follower?.length > 0 ? (
           follower.map((user, index) => <UserCard key={index} user={user} />)
         ) : (
-          <p className='px-4 text-gray-600'>No followers yet.</p>
+          <p className='text-gray-600'>No followers yet.</p>
         )}
       </div>
     </div>

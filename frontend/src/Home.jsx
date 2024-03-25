@@ -7,11 +7,12 @@ import { UserContext } from "./Context/UserContext";
 import UserTab from "./components/UserTab";
 import FollowersPanel from "./profile/Widgets/FollowersPanel";
 import Posts from "./posts/Posts";
+import { SearchContext } from "./Context/SearchContext";
 
 const Home = () => {
   const { user } = useContext(UserContext);
-
-  const [followers, setFollowers] = useState();
+  const users = useContext(SearchContext);
+  const [followers, setFollowers] = useState([]);
 
   useEffect(() => {
     if (user) {
@@ -30,25 +31,27 @@ const Home = () => {
       toast.error("Internal Server error" + error.message);
     }
   };
+
   return (
     <div className='container mx-auto mt-8 flex justify-center min-h-screen'>
-      <div className='w-1/4 mr-4'>
-        {/* Left-sided div */}
-        <div className='bg-gray-100 p-4 rounded-md'>
-          <UserTab user={user} />
-          <FollowersPanel followers={followers} />
-        </div>
+      {/* Left-sided div */}
+      <div className='w-1/4 mr-4 bg-gray-100 rounded-md p-4 min-h-[500px]'>
+        <UserTab user={user} />
+        <FollowersPanel followers={followers} />
       </div>
 
+      {/* Middle div */}
       <div className='w-1/2'>
         <Posts />
       </div>
 
-      <div className='w-1/4 ml-4'>
-        {/* Right-sided div */}
-        <div className='bg-gray-100 p-4 rounded-md'>
-          <h2 className='text-xl font-semibold mb-4'>Right Sided Div</h2>
-          {/* Add content for right-sided div here */}
+      {/* Right-sided div */}
+      <div className='w-1/4 ml-4 bg-gray-100 rounded-md p-4 h-[500px]'>
+        <h2 className='text-xl font-semibold mb-4'>Suggested for you</h2>
+        <div className='grid grid-cols-1 gap-4 h-[400px] overflow-hidden'>
+          {users?.user?.map((user) => (
+            <UserTab key={user.id} user={user} />
+          ))}
         </div>
       </div>
     </div>

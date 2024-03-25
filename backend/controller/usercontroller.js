@@ -109,7 +109,8 @@ const login = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const { name, email, image, phone, address, dob } = req.body;
+  const { name, email, image, phone, address, dob, slang, coverImage } =
+    req.body;
   const { id } = req.user;
   try {
     const user = await prisma.user.update({
@@ -119,7 +120,9 @@ const updateUser = async (req, res) => {
       data: {
         name,
         email,
+        slang,
         image,
+        coverImage,
         phone,
         address,
         dob,
@@ -190,8 +193,11 @@ const getUser = async (req, res) => {
       const { id } = req.user;
       const user = await prisma.user.findUnique({
         where: { id },
-        include: { Post: true },
-        include: { follower: true },
+        include: {
+          Post: true,
+          follower: true,
+          notification: true,
+        },
       });
 
       res.send({
@@ -218,7 +224,11 @@ const getUserById = async (req, res) => {
   try {
     const user = await prisma.user.findUnique({
       where: { id },
-      include: { Post: true },
+      include: {
+        Post: true,
+        follower: true,
+        notification: true,
+      },
     });
 
     res.send({

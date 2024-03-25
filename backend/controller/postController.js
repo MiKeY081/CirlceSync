@@ -1,4 +1,5 @@
 import { prisma } from "../prismaconfig/config.js";
+import { sendNofication } from "./notificationController.js";
 
 const getPosts = async (req, res) => {
   const posts = await prisma.post.findMany({
@@ -129,10 +130,17 @@ const likeAPost = async (req, res) => {
           },
         },
       });
+      const notification = sendNofication(
+        "like",
+        "liked your post",
+        post.userId,
+        userId
+      );
       res.send({
         success: true,
         message: "Post unliked successfully",
         newpost,
+        notification,
       });
     } else {
       const post = await prisma.post.update({
