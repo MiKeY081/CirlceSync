@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PostCard from "../components/PostCard";
 import axios from "axios";
 import { toast } from "react-toastify";
-import CreatePostTouch from "./Widget/CreatePostTouch";
 import PostForm from "./PostForm";
+import UserTab from "../components/UserTab";
+import { UserContext } from "../Context/UserContext";
 
 const Posts = () => {
+  const { user } = useContext(UserContext);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -34,8 +36,7 @@ const Posts = () => {
       <div className='w-1/4 mr-4'>
         {/* Left-sided div */}
         <div className='bg-gray-100 p-4 rounded-md'>
-          <h2 className='text-xl font-semibold mb-4'>Left Sided Div</h2>
-          {/* Add content for left-sided div here */}
+          <UserTab user={user} />
         </div>
       </div>
 
