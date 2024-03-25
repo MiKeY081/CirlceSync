@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header />
-      <Outlet />
+      <Outlet className=' min-h-screen' />
       <Footer />
     </>
   );

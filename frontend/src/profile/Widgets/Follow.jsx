@@ -29,12 +29,12 @@ const Follow = ({ followerId, followingId, setFollowersPanel }) => {
 
   const handleFollow = async () => {
     try {
+      setIsFollowing(true);
       const { data } = await axios.post("/follow", {
         followerId,
         followingId,
       });
       if (data.success) {
-        setIsFollowing(true);
         toast.success("Followed");
         if (setFollowersPanel) {
           setFollowersPanel((prev) => [...prev, data.follow]);
@@ -49,6 +49,7 @@ const Follow = ({ followerId, followingId, setFollowersPanel }) => {
 
   const handleUnfollow = async () => {
     try {
+      setIsFollowing(false);
       const { data } = await axios.delete("/unfollow", {
         data: {
           followerId,
@@ -56,7 +57,6 @@ const Follow = ({ followerId, followingId, setFollowersPanel }) => {
         },
       });
       if (data.success) {
-        setIsFollowing(false);
         toast.success("Unfollowed");
         if (setFollowersPanel) {
           setFollowersPanel((prev) =>
