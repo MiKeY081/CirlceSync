@@ -9,8 +9,8 @@ import axios from "axios";
 import UserContextProvider from "./Context/UserContext.jsx";
 import SearchContextProvider from "./Context/SearchContext.jsx";
 axios.defaults.baseURL =
-  "http://localhost:5001/api/v1" ||
-  "https://sync-in-circle-backend.vercel.app/api/v1";
+  "https://sync-in-circle-backend.vercel.app/api/v1" ||
+  "http://localhost:5001/api/v1";
 axios.defaults.withCredentials = true;
 
 ReactDOM.createRoot(document.getElementById("root")).render(
