@@ -16,6 +16,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: function (origin, callback) {
+      // Check if the origin is allowed
       if (
         origin === "https://sync-in-circle-frontend.vercel.app" ||
         origin === "http://localhost:5173"
