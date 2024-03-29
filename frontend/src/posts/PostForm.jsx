@@ -35,7 +35,7 @@ const PostForm = ({ post, placeholder, setPosts }) => {
       if (data.success) {
         toast.success(data.message);
         setPosts((prev) => [...prev, data.post]);
-        navigate("/posts");
+        navigate("/");
       } else {
         toast.error(data.message);
       }
@@ -56,7 +56,7 @@ const PostForm = ({ post, placeholder, setPosts }) => {
         setPosts((prev) => {
           return prev.map((post) => (post.id === id ? data.post : post));
         });
-        navigate(`/posts`);
+        navigate(`/`);
       } else {
         toast.error(data.message);
       }

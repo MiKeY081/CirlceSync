@@ -5,7 +5,11 @@ import cookie from "cookie-parser";
 
 const getUsers = async (req, res) => {
   try {
-    const users = await prisma.user.findMany();
+    const users = await prisma.user.findMany({
+      include: {
+        follower: true,
+      },
+    });
     if (!users) {
       res.send({
         success: true,
@@ -225,7 +229,11 @@ const getUserById = async (req, res) => {
     const user = await prisma.user.findUnique({
       where: { id },
       include: {
-        Post: true,
+        Post: {
+          include: {
+            comment: true,
+          },
+        },
         follower: true,
         notification: true,
       },

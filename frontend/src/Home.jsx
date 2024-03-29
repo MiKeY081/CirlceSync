@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import PostCard from "./components/PostCard";
-import PostForm from "./posts/PostForm";
 import { UserContext } from "./Context/UserContext";
 import UserTab from "./components/UserTab";
 import FollowersPanel from "./profile/Widgets/FollowersPanel";
@@ -13,12 +11,24 @@ const Home = () => {
   const { user } = useContext(UserContext);
   const users = useContext(SearchContext);
   const [followers, setFollowers] = useState([]);
-
+  const [suggestedUsers, setSuggestedUsers] = useState();
   useEffect(() => {
     if (user) {
       handleGetFollowers();
     }
-  }, [user]);
+    if (users?.user && user && user?.follower) {
+      setSuggestedUsers(
+        users?.user?.filter((oneuser) => {
+          return (
+            user.id != oneuser.id &&
+            !user?.follower?.some(
+              (follower) => follower.followingId === oneuser.id
+            )
+          );
+        })
+      );
+    }
+  }, [user, user?.follower]);
 
   const handleGetFollowers = async () => {
     try {
@@ -49,7 +59,7 @@ const Home = () => {
       <div className='w-1/4 ml-4 bg-gray-100 rounded-md p-4 h-[500px]'>
         <h2 className='text-xl font-semibold mb-4'>Suggested for you</h2>
         <div className='grid grid-cols-1 gap-4 h-[400px] overflow-hidden'>
-          {users?.user?.map((user) => (
+          {suggestedUsers?.map((user) => (
             <UserTab key={user.id} user={user} />
           ))}
         </div>

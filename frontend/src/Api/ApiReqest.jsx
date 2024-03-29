@@ -112,14 +112,10 @@ const handleLike = async (id) => {
   }
 };
 
-const handleComment = async (postId, comment) => {
+const handleCreateComment = async (postId, comment) => {
   try {
     const { data } = await axios.post(`/comment/create`, { comment, postId });
-    if (data.success) {
-      console.log(data.message);
-    } else {
-      console.log(data.message);
-    }
+    return data;
   } catch (error) {
     console.log(error);
   }
@@ -235,7 +231,6 @@ const handleGetUserById = async (id) => {
 };
 
 const handlelogout = async () => {
-  
   try {
     const { data } = await axios.post("/user/logout");
     if (data.success) {
@@ -258,7 +253,7 @@ export {
   handleEditPost,
   handleDeletePost,
   handleLike,
-  handleComment,
+  handleCreateComment,
   editComment,
   deleteComment,
   handleUserProfile,

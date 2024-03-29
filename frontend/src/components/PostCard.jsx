@@ -5,11 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { UserContext } from "../Context/UserContext";
 import PostOwnerTab from "./PostOwnerTab";
+import CreatePostTouch from "../posts/Widget/CreatePostTouch";
+import Comments from "../posts/Comments";
 
 const PostCard = ({ post, setPosts }) => {
   const [owner, setOwner] = useState();
   const { user } = useContext(UserContext);
   const [isLoved, setIsLoved] = useState(false);
+  const [showAllComments, setShowAllComments] = useState(false);
 
   const getUser = async () => {
     try {
@@ -70,9 +73,7 @@ const PostCard = ({ post, setPosts }) => {
       console.error("Error while sending like:", error);
     }
   };
-  const handleComment = (id) => {
-    console.log("Comment", id);
-  };
+
   const handleShare = (id) => {
     console.log("Share", id);
   };
@@ -100,33 +101,34 @@ const PostCard = ({ post, setPosts }) => {
         <div className='p-4 bg-white rounded-b-lg group-hover:bg-gray-50'>
           <div className='flex items-center justify-between'>
             {/* Add the LoveButton component here */}
-            <div className='flex gap-3 justify-center items-center'>
-              <FaHeart
-                onClick={() => {
-                  if (!user?.name) {
-                    setIsLoved(!isLoved);
-                  }
-                  handleLove(post.id);
-                }}
-                fill={
-                  user?.id
-                    ? post?.likedBy?.includes(user?.id)
+            <div className='flex gap-3 justify-between items-center w-full'>
+              <div className='flex gap-2 '>
+                <FaHeart
+                  onClick={() => {
+                    if (!user?.name) {
+                      setIsLoved(!isLoved);
+                    }
+                    handleLove(post.id);
+                  }}
+                  fill={
+                    user?.id
+                      ? post?.likedBy?.includes(user?.id)
+                        ? "red"
+                        : "darkslategray"
+                      : isLoved
                       ? "red"
                       : "darkslategray"
-                    : isLoved
-                    ? "red"
-                    : "darkslategray"
-                }
-                size={25}
-                style={{ cursor: "pointer" }}
-              />
-              <span className=''>
-                {" "}
-                {post?.likedBy?.length == 0 ? "" : post?.likedBy?.length}{" "}
-              </span>
-
+                  }
+                  size={25}
+                  style={{ cursor: "pointer" }}
+                />
+                <span className=''>
+                  {" "}
+                  {post?.likedBy?.length == 0 ? "" : post?.likedBy?.length}{" "}
+                </span>
+              </div>
               <FaComment
-                onClick={() => handleComment(post.id)} // Implement handleComment function
+                onClick={() => setShowAllComments(!showAllComments)} // Implement handleComment function
                 size={25}
                 style={{ cursor: "pointer", marginLeft: "10px" }}
               />
@@ -138,6 +140,13 @@ const PostCard = ({ post, setPosts }) => {
               />
             </div>
           </div>
+        </div>
+        <div className='py-3'>
+          <Comments
+            post={post}
+            showAllComments={showAllComments}
+            setShowAllComments={setShowAllComments}
+          />
         </div>
       </div>
     )

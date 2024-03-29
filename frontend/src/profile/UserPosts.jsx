@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import PostCard from "../components/PostCard";
 import { useParams } from "react-router-dom";
 import PostForm from "../posts/PostForm";
+import axios from "axios";
 
 const UserPosts = ({ owner }) => {
   const paramId = useParams();
@@ -9,10 +10,9 @@ const UserPosts = ({ owner }) => {
 
   useEffect(() => {
     if (owner) {
-      setPosts(owner.Post);
+      setPosts(owner?.Post);
     }
   }, [owner]);
-
   return (
     owner && (
       <div className='flex flex-col gap-4 items-center w-1/2'>

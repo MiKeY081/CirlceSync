@@ -1,4 +1,5 @@
 import { prisma } from "../prismaconfig/config.js";
+import { sendNofication } from "./notificationController.js";
 
 const getComments = async (req, res) => {
   const comment = await prisma.comment.findMany({
@@ -42,11 +43,26 @@ const createComment = async (req, res) => {
         owner: post.userId,
       },
     });
-    res.send({
-      success: true,
-      message: "Comment added",
-      newComment,
-    });
+    if (post.userId != id) {
+      const notification = sendNofication(
+        "comment",
+        "commented in your post",
+        post.userId,
+        id
+      );
+      res.send({
+        success: true,
+        message: "Comment added",
+        newComment,
+        notification,
+      });
+    } else {
+      res.send({
+        success: true,
+        message: "Comment added",
+        newComment,
+      });
+    }
   } catch (error) {
     res.send({
       success: false,
@@ -126,6 +142,7 @@ const getCommentByPost = async (req, res) => {
   try {
     const post = await prisma.post.findUnique({
       where: { id },
+      include: { User: true },
     });
     console.log(post);
     const { comment } = post;

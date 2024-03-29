@@ -75,7 +75,7 @@ const Follow = ({ followerId, followingId, setFollowersPanel }) => {
     <div className='flex '>
       {isFollowing ? (
         <button
-          className='bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded flex justify-center'
+          className=' hover:bg-red-600 text-red-600 hover:text-white font-bold py-2 px-4 flex justify-center items-center rounded-full border-red-600 border-2'
           onClick={handleUnfollow}
         >
           <FaUserMinus className='mr-2 inline-block' />
@@ -83,7 +83,7 @@ const Follow = ({ followerId, followingId, setFollowersPanel }) => {
         </button>
       ) : (
         <button
-          className='bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded flex justify-center'
+          className='hover:bg-green-600 text-green-600 hover:text-white font-bold py-2 px-4 flex justify-center items-center rounded-full border-green-600 border-2'
           onClick={handleFollow}
         >
           <FaUserPlus className='mr-2 inline-block' />

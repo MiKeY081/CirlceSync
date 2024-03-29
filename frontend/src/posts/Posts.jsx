@@ -3,7 +3,6 @@ import PostCard from "../components/PostCard";
 import axios from "axios";
 import { toast } from "react-toastify";
 import PostForm from "./PostForm";
-import UserTab from "../components/UserTab";
 import { UserContext } from "../Context/UserContext";
 
 const Posts = () => {

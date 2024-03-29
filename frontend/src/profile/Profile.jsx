@@ -5,6 +5,7 @@ import UserPosts from "./UserPosts";
 import FollowersPanel from "./Widgets/FollowersPanel";
 import { toast } from "react-toastify";
 import axios from "axios";
+import About from "./Widgets/About";
 
 const Profile = ({ owner }) => {
   const paramId = useParams();
@@ -40,7 +41,8 @@ const Profile = ({ owner }) => {
             setFollowers={setFollowers}
           />
           <div className='flex min-h-screen min-w-screen px-20 py-8'>
-            <div className='flex flex-start w-1/2 relative '>
+            <div className='flex flex-start w-1/2 relative flex-col'>
+              <About owner={owner} />
               <FollowersPanel followers={followers} open={open} />
             </div>
             <UserPosts owner={owner} />

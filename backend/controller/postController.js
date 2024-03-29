@@ -7,6 +7,7 @@ const getPosts = async (req, res) => {
       User: true,
       comment: true,
     },
+    take: 4,
   });
   try {
     if (!posts.length) {
@@ -33,8 +34,19 @@ const getPosts = async (req, res) => {
 const getPostById = async (req, res) => {
   const { id } = req.params;
   try {
-    const post = await prisma.post.findUnique({ where: { id } });
-    const posts = await prisma.post.findMany();
+    const post = await prisma.post.findUnique({
+      where: { id },
+      include: {
+        comment: true,
+        User: true,
+      },
+    });
+    const posts = await prisma.post.findMany({
+      include: {
+        comment: true,
+        User: true,
+      },
+    });
     const allpost = [post, ...posts.filter((nextpost) => nextpost.id !== id)];
     res.send({
       success: true,
