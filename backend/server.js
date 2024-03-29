@@ -15,8 +15,10 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://sync-in-circle-frontend.vercel.app",
-    secure: true,
+    origin: [
+      "https://sync-in-circle-frontend.vercel.app",
+      "http://localhost:5173",
+    ],
     credentials: true,
   })
 );
@@ -29,5 +31,5 @@ app.use("/api/v1", followerRoute);
 const PORT = process.env.PORT || 5001;
 
 app.listen(PORT, () => {
-  console.log("Server is running on port 5001");
+  console.log(`Server is running on port ${PORT}`);
 });
