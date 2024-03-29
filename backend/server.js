@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(
   cors({
     origin:
-      "http://localhost:5173" || "https://sync-in-circle-frontend.vercel.app",
+      "https://sync-in-circle-frontend.vercel.app" || "http://localhost:5173",
     secure: true,
     credentials: true,
   })
