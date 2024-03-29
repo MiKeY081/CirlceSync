@@ -6,12 +6,15 @@ import UserTab from "./components/UserTab";
 import FollowersPanel from "./profile/Widgets/FollowersPanel";
 import Posts from "./posts/Posts";
 import { SearchContext } from "./Context/SearchContext";
+import { useNavigate } from "react-router-dom";
+import Login from "./login/Login";
 
 const Home = () => {
   const { user } = useContext(UserContext);
   const users = useContext(SearchContext);
   const [followers, setFollowers] = useState([]);
   const [suggestedUsers, setSuggestedUsers] = useState();
+  const navigate = useNavigate();
   useEffect(() => {
     if (user) {
       handleGetFollowers();
@@ -42,7 +45,7 @@ const Home = () => {
     }
   };
 
-  return (
+  return user ? (
     <div className='container mx-auto mt-8 flex justify-center min-h-screen'>
       {/* Left-sided div */}
       <div className='w-1/4 mr-4 bg-gray-100 rounded-md p-4 min-h-[500px]'>
@@ -65,6 +68,8 @@ const Home = () => {
         </div>
       </div>
     </div>
+  ) : (
+    <Login />
   );
 };
 

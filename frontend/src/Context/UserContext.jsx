@@ -8,7 +8,15 @@ export const UserContext = createContext();
 const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState();
   useEffect(() => {
-    handleUserProfile(setUser);
+    const fetechUserProfile = async () => {
+      const data = await handleUserProfile();
+      if (data.success) {
+        setUser(data.user);
+      } else {
+        console.log(data.message);
+      }
+    };
+    fetechUserProfile();
   }, []);
   return (
     <UserContext.Provider value={{ user, setUser }}>

@@ -22,15 +22,10 @@ const App = () => {
           <Route path='/' element={<Home />} />
           <Route path='/posts' element={<Posts />} />
           <Route path='/post/:postId' element={<Post />} />
-          {user ? (
-            <>
-              <Route path='/post/create' element={<PostForm />} />
-              <Route path='/post/edit/:id' element={<EditPost />} />
-              <Route path='/profile/edit' element={<EditProfile />} />
-            </>
-          ) : (
-            <Route path='/user/login' element={<Login />} />
-          )}
+          <Route path='/post/create' element={<PostForm />} />
+          <Route path='/post/edit/:id' element={<EditPost />} />
+          <Route path='/profile/edit' element={<EditProfile />} />
+          <Route path='/user/login' element={<Login />} />
           <Route path='/profile/:id' element={<LoadProfile />} />
           <Route path='/user/login' element={<Login />} />
           <Route path='/user/register' element={<Register />} />

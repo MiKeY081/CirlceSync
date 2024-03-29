@@ -4,13 +4,15 @@ import { UserContext } from "../Context/UserContext";
 import { handleCreateComment } from "../Api/ApiReqest";
 import { toast } from "react-toastify";
 import { calculateDateTime } from "../assets/Functions/DateFunctions";
-import axios from "axios";
 import UserTab from "../components/UserTab";
+import { FaUserCircle } from "react-icons/fa";
 
-const Comments = ({ post, showAllComments, setShowAllComments }) => {
+const Comments = ({ post }) => {
   const { user } = useContext(UserContext);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
+  const [showAllComments, setShowAllComments] = useState(false);
+
   useEffect(() => {
     setComments(post?.comment || []);
   }, [post?.comment]);
@@ -96,6 +98,7 @@ const Comments = ({ post, showAllComments, setShowAllComments }) => {
             <input
               type='text'
               placeholder='Add your comment'
+              id={post?.id}
               value={comment}
               maxLength={200} // Limiting comment length to 200 characters
               className='bg-transparent focus:outline-none flex-grow transition-all duration-300 border-b border-gray-300 focus:border-blue-500 px-2 py-1 rounded-lg'

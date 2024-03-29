@@ -12,7 +12,6 @@ const PostCard = ({ post, setPosts }) => {
   const [owner, setOwner] = useState();
   const { user } = useContext(UserContext);
   const [isLoved, setIsLoved] = useState(false);
-  const [showAllComments, setShowAllComments] = useState(false);
 
   const getUser = async () => {
     try {
@@ -99,54 +98,48 @@ const PostCard = ({ post, setPosts }) => {
           </div>
         )}
         <div className='p-4 bg-white rounded-b-lg group-hover:bg-gray-50'>
-          <div className='flex items-center justify-between'>
-            {/* Add the LoveButton component here */}
-            <div className='flex gap-3 justify-between items-center w-full'>
-              <div className='flex gap-2 '>
-                <FaHeart
-                  onClick={() => {
-                    if (!user?.name) {
-                      setIsLoved(!isLoved);
-                    }
-                    handleLove(post.id);
-                  }}
-                  fill={
-                    user?.id
-                      ? post?.likedBy?.includes(user?.id)
-                        ? "red"
-                        : "darkslategray"
-                      : isLoved
+          <div className='flex gap-3 justify-between items-center w-full'>
+            <div className='flex gap-2 '>
+              <FaHeart
+                onClick={() => {
+                  if (!user?.name) {
+                    setIsLoved(!isLoved);
+                  }
+                  handleLove(post.id);
+                }}
+                fill={
+                  user?.id
+                    ? post?.likedBy?.includes(user?.id)
                       ? "red"
                       : "darkslategray"
-                  }
-                  size={25}
-                  style={{ cursor: "pointer" }}
-                />
-                <span className=''>
-                  {" "}
-                  {post?.likedBy?.length == 0 ? "" : post?.likedBy?.length}{" "}
-                </span>
-              </div>
-              <FaComment
-                onClick={() => setShowAllComments(!showAllComments)} // Implement handleComment function
+                    : isLoved
+                    ? "red"
+                    : "darkslategray"
+                }
                 size={25}
-                style={{ cursor: "pointer", marginLeft: "10px" }}
+                style={{ cursor: "pointer" }}
               />
-
-              <FaShare
-                onClick={() => handleShare(post.id)} // Implement handleShare function
-                size={25}
-                style={{ cursor: "pointer", marginLeft: "10px" }}
-              />
+              <span className=''>
+                {" "}
+                {post?.likedBy?.length == 0 ? "" : post?.likedBy?.length}{" "}
+              </span>
             </div>
+            <label htmlFor={post?.id} className='cursor-pointer'>
+              <FaComment
+                size={25}
+                style={{ cursor: "pointer", marginLeft: "10px" }}
+              />
+            </label>
+
+            <FaShare
+              onClick={() => handleShare(post.id)} // Implement handleShare function
+              size={25}
+              style={{ cursor: "pointer", marginLeft: "10px" }}
+            />
           </div>
         </div>
         <div className='py-3'>
-          <Comments
-            post={post}
-            showAllComments={showAllComments}
-            setShowAllComments={setShowAllComments}
-          />
+          <Comments post={post} />
         </div>
       </div>
     )

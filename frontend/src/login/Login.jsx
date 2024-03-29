@@ -1,15 +1,21 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { RiMailLine, RiLockPasswordLine } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { UserContext } from "../Context/UserContext";
 
 const Login = () => {
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, []);
 
   const handleLogin = async () => {
     try {
@@ -25,6 +31,7 @@ const Login = () => {
       console.log(error);
     }
   };
+
   return (
     <div className='flex flex-col items-center justify-center min-h-screen'>
       <h1 className='text-3xl font-bold mb-6'>Login</h1>

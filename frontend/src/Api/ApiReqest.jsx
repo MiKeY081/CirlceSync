@@ -162,14 +162,10 @@ const handleFetchAllProfiles = async (setUsers) => {
   }
 };
 
-const handleUserProfile = async (setUser) => {
+const handleUserProfile = async () => {
   try {
     const { data } = await axios.get(`/user/getUser`);
-    if (data.success) {
-      setUser(data.user);
-    } else {
-      toast.error(data.message);
-    }
+    return data;
   } catch (error) {
     console.log(error);
   }
