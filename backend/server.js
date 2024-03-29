@@ -6,7 +6,9 @@ import cookieParser from "cookie-parser";
 import { postRoute } from "./route/postRoute.js";
 import { commentRoute } from "./route/commentRoute.js";
 import { followerRoute } from "./route/followerRoute.js";
+import { config } from "dotenv";
 
+config();
 const app = express();
 app.use(morgan("dev"));
 app.use(cookieParser());
@@ -25,7 +27,7 @@ app.use("/api/v1", postRoute);
 app.use("/api/v1", commentRoute);
 app.use("/api/v1", followerRoute);
 
-const PORT = "https://sync-in-circle-backend.vercel.app" || 5001;
+const PORT = process.env.PORT || 5001;
 
 app.listen(PORT, () => {
   console.log("Server is running on port 5001");
