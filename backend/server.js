@@ -15,9 +15,16 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(
   cors({
-    origin:
-      "https://sync-in-circle-frontend.vercel.app" || "http://localhost:5173",
-    secure: true,
+    origin: function (origin, callback) {
+      if (
+        origin === "https://sync-in-circle-frontend.vercel.app" ||
+        origin === "http://localhost:5173"
+      ) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
