@@ -85,6 +85,7 @@ const PostForm = ({ post, placeholder, setPosts }) => {
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           className='absolute min-w-[500px] min-h-64 py-10 mx-auto flex justify-center items-center text-gray-600 z-20'
+          open={isPopoverOpen}
         >
           <div className='relative bg-white border border-gray-300 rounded shadow-lg  p-10 w-[500px] h-full'>
             <FaTimes
