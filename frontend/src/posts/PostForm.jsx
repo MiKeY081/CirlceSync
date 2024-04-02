@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { handleImageUpload } from "../assets/Functions/ImageHandler";
 import CreatePostTouch from "./Widget/CreatePostTouch";
 import { Backdrop } from "@mui/material";
+import { RiKey2Line } from "react-icons/ri";
 
 const PostForm = ({ post, placeholder, setPosts }) => {
   const [caption, setCaption] = useState(post?.caption || "");
@@ -118,7 +119,7 @@ const PostForm = ({ post, placeholder, setPosts }) => {
                 >
                   Image Upload
                 </label>
-                <div className='flex items-center'>
+                <div className='flex flex-col justify-center w-1/2'>
                   <input
                     type='file'
                     id='image'
@@ -128,6 +129,14 @@ const PostForm = ({ post, placeholder, setPosts }) => {
                     className='hidden'
                     accept='image/*'
                   />
+                  {images?.map((image, index) => (
+                    <img
+                      key={index}
+                      src={image}
+                      alt='image'
+                      className='w-15 h-30 object-cover rounded-lg inline-block p-2 '
+                    />
+                  ))}
                   <label
                     htmlFor='image'
                     className='cursor-pointer bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md inline-flex items-center'

@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
-import { AiOutlineBell } from "react-icons/ai";
 import { SearchContext } from "../Context/SearchContext";
 import UserTab from "./UserTab";
 import { Link } from "react-router-dom";
@@ -9,9 +8,11 @@ import NotificationDropdown from "./NotificationDropdown";
 
 const Header = () => {
   const { user, search, setSearch } = useContext(SearchContext);
+
   const searchedUser = user?.filter((user) => {
     if (search) return user.name.toLowerCase().includes(search.toLowerCase());
   });
+
   return (
     <nav className='flex items-center justify-between p-4 bg-gray-800 text-white relative'>
       <div className='flex items-center'>
@@ -41,7 +42,7 @@ const Header = () => {
         <UserItems />
       </div>
       {search && searchedUser && (
-        <div className='absolute top-full left-[500px] bg-gray-50 w-fit p-4 rounded-md shadow-md z-10'>
+        <div className='absolute top-full left-[500px] bg-gray-50 w-[400px] p-4 rounded-md shadow-md z-10'>
           {searchedUser && (
             <div className=''>
               {searchedUser.map((user) => (

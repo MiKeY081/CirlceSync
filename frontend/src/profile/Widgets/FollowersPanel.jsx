@@ -46,31 +46,32 @@ const FollowersPanel = ({ followers, open }) => {
         <FaUserFriends className='text-gray-600 ml-2' />
       </div>
       {isOpen && (
-        <div className=' text-black bg-white flex justify-center items-center min-w-full min-h-full'>
-          <Backdrop
-            className=' h-[500px] max-w-md bg-whire border-gray-300 rounded py-4'
-            open={isOpen}
-          >
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          className='relative'
+          open={isOpen}
+        >
+          <div className='relative p-2 bg-slate-200 rounded-lg gap-4 flex flex-col px-10 py-2 min-w-96'>
             <button
-              className='absolute top-0 right-0 mr-2 mt-2 text-white hover:text-gray-200 transition duration-300'
+              className='absolute top-0 right-0 mr-2 mt-2 text-black hover:text-gray-800 transition duration-300'
               onClick={toggleBox}
             >
               <FaTimes />
             </button>
-            <div className='p-2 bg-slate-200 rounded-lg gap-4 flex flex-col'>
-              {follower?.length > 0 && (
-                <h1 className='text-gray-800 font-semibold p-2'>Followers</h1>
-              )}
-              {follower?.length > 0 ? (
-                follower.map((user, index) => (
-                  <UserTab key={index} user={user} className='border-black' />
-                ))
-              ) : (
-                <p className='text-gray-600'>No followers yet.</p>
-              )}
-            </div>
-          </Backdrop>
-        </div>
+            {follower?.length > 0 && (
+              <h1 className='text-gray-800 font-semibold p-2 text-lg'>
+                Followers
+              </h1>
+            )}
+            {follower?.length > 0 ? (
+              follower.map((user, index) => (
+                <UserTab key={index} user={user} className='border-black' />
+              ))
+            ) : (
+              <p className='text-gray-600'>No followers yet.</p>
+            )}
+          </div>
+        </Backdrop>
       )}
     </div>
   ) : (
