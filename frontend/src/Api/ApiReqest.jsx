@@ -121,29 +121,21 @@ const handleCreateComment = async (postId, comment) => {
   }
 };
 
-const editComment = async (id, comment) => {
+const handleEditComment = async (id, comment) => {
   try {
     const { data } = await axios.put(`/comment/update/${id}`, {
       comment,
     });
-    if (data.success) {
-      toast.success(data.message);
-    } else {
-      toast.error(data.message);
-    }
+    return await data;
   } catch (error) {
     console.log(error);
   }
 };
 
-const deleteComment = async (id, commentId) => {
+const handleDeleteComment = async (id) => {
   try {
-    const { data } = await axios.delete(`/comment/${commentId}`);
-    if (data.success) {
-      toast.success(data.message);
-    } else {
-      toast.error(data.message);
-    }
+    const { data } = await axios.delete(`/comment/delete/${id}`);
+    return await data;
   } catch (error) {
     console.log(error);
   }
@@ -250,8 +242,8 @@ export {
   handleDeletePost,
   handleLike,
   handleCreateComment,
-  editComment,
-  deleteComment,
+  handleEditComment,
+  handleDeleteComment,
   handleUserProfile,
   handleFetchProfile,
   handleFetchAllProfiles,

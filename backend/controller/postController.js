@@ -7,7 +7,8 @@ const getPosts = async (req, res) => {
       User: true,
       comment: true,
     },
-    take: 4,
+    take: 10,
+    sortBy: { createdAt: "desc" },
   });
   try {
     if (!posts.length) {

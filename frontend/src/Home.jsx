@@ -20,16 +20,15 @@ const Home = () => {
       handleGetFollowers();
     }
     if (users?.user && user && user?.follower) {
-      setSuggestedUsers(
-        users?.user?.filter((oneuser) => {
-          return (
-            user.id != oneuser.id &&
-            !user?.follower?.some(
-              (follower) => follower.followingId === oneuser.id
-            )
-          );
-        })
-      );
+      const unFollowedUsers = users?.user?.filter((oneuser) => {
+        return (
+          user.id != oneuser.id &&
+          !user?.follower.some(
+            (follower) => follower.followingId === oneuser.id
+          )
+        );
+      });
+      setSuggestedUsers(unFollowedUsers.slice(0, 5));
     }
   }, [user, user?.follower]);
 

@@ -1,15 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
 import { BiPaperPlane } from "react-icons/bi";
 import { UserContext } from "../Context/UserContext";
-import { handleCreateComment } from "../Api/ApiReqest";
+import { handleCreateComment, handleEditComment } from "../Api/ApiReqest";
 import { toast } from "react-toastify";
 import { calculateDateTime } from "../assets/Functions/DateFunctions";
 import UserTab from "../components/UserTab";
 import { FaUserCircle } from "react-icons/fa";
+import CommentManipulateItems from "../assets/Widgets/CommentManipulateItems";
 
-const Comments = ({ post }) => {
+const Comments = ({
+  post,
+  comment: existingComment,
+  commentId: existingCommentId,
+}) => {
   const { user } = useContext(UserContext);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState(existingComment || "");
   const [comments, setComments] = useState([]);
   const [showAllComments, setShowAllComments] = useState(false);
 
@@ -22,14 +27,27 @@ const Comments = ({ post }) => {
       toast.error("Please enter a comment.");
       return;
     }
-
-    const data = await handleCreateComment(postId, comment);
-    if (data.success) {
-      toast.success(data.message);
-      setComments([...comments, data.newComment]);
-      setComment("");
+    if (existingComment) {
+      const data = await handleEditComment(existingCommentId, comment);
+      if (data.success) {
+        toast.success(data.message);
+        setComments((prev) => [
+          ...(prev.id == existingCommentId ? data.updatedComment : prev),
+        ]);
+        console.log(comments);
+        setComment("");
+      } else {
+        toast.error(data.error);
+      }
     } else {
-      toast.error(data.error);
+      const data = await handleCreateComment(postId, comment);
+      if (data.success) {
+        toast.success(data.message);
+        setComments([data.newComment, ...comments]);
+        setComment("");
+      } else {
+        toast.error(data.error);
+      }
     }
   };
 
@@ -54,9 +72,18 @@ const Comments = ({ post }) => {
                   <div key={index} className='comment flex items-start mb-3'>
                     {obj?.userId && (
                       <div className='flex flex-col'>
-                        <UserTab userId={obj?.userId} />
+                        <div className='flex justify-between'>
+                          <UserTab userId={obj?.userId} />
+                          {comments && (
+                            <CommentManipulateItems
+                              id={obj?.id}
+                              comment={obj?.comment}
+                              setComments={setComments}
+                            />
+                          )}
+                        </div>
                         <div>
-                          <p className='comment-text text-sm'>
+                          <p className='comment-text text-sm ml-3'>
                             {comments[index]?.comment}
                           </p>
                           <p className='comment-time text-xs text-gray-500'>

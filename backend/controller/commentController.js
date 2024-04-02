@@ -143,6 +143,7 @@ const getCommentByPost = async (req, res) => {
     const post = await prisma.post.findUnique({
       where: { id },
       include: { User: true },
+      sortBy: { createdAt: "desc" },
     });
     console.log(post);
     const { comment } = post;
