@@ -39,7 +39,7 @@ const Comments = ({ post }) => {
 
   return (
     user && (
-      <div className='mt-4'>
+      <div className='mt-1 p-0 '>
         {comments?.length > 0 && (
           <>
             {showAllComments ? (
@@ -74,7 +74,7 @@ const Comments = ({ post }) => {
             ) : (
               <button
                 onClick={toggleShowAllComments}
-                className='text-sm text-gray-600 mb-2 view-more-btn'
+                className='text-sm text-gray-600 mb-1 view-more-btn'
               >
                 View comments
               </button>
@@ -82,7 +82,7 @@ const Comments = ({ post }) => {
           </>
         )}
 
-        <div className='comment-input flex items-center mt-3'>
+        <div className='comment-input flex items-center mt-1'>
           <div className='avatar-wrapper mr-3'>
             {user.image ? (
               <img

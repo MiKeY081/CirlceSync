@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { Suspense, useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./Home";
@@ -16,7 +16,7 @@ import { UserContext } from "./Context/UserContext";
 const App = () => {
   const { user } = useContext(UserContext);
   return (
-    <>
+    <Suspense fallback={<div>Loading..</div>}>
       <Routes>
         <Route element={<Layout />}>
           <Route path='/' element={<Home />} />
@@ -32,7 +32,7 @@ const App = () => {
           <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>
-    </>
+    </Suspense>
   );
 };
 

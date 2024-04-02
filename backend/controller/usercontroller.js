@@ -5,11 +5,16 @@ import cookie from "cookie-parser";
 
 const getUsers = async (req, res) => {
   try {
-    const users = await prisma.user.findMany({
-      include: {
-        follower: true,
+    const users = await prisma.user.aggregate(
+      {
+        $sample: { size: 4 },
       },
-    });
+      {
+        include: {
+          follower: true,
+        },
+      }
+    );
     if (!users) {
       res.send({
         success: true,
