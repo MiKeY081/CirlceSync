@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
-import { FaEdit } from "react-icons/fa";
-import { MdDescription } from "react-icons/md";
-
+import { FaEdit, FaPenFancy } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
 import Follow from "./Follow";
@@ -33,10 +31,14 @@ const UserInfo = ({ owner, followers, setFollowers }) => {
           <div className='py-4 px-6 flex justify-between'>
             <div></div>
             <div className='flex flex-col'>
-              <h1 className='text-2xl font-semibold'>{owner.name}</h1>
-              <div className='flex flex-row '>
-                <MdDescription />
-                <h4 className='text-2xl font-semibold'>{owner.slang}</h4>
+              <h1 className='text-2xl font-semibold capitalize'>
+                {owner.name}
+              </h1>
+              <div className='flex flex-row justify-start items-center gap-4'>
+                <FaPenFancy />
+                <p className='text-xl font-semibold'>
+                  {owner.slang.charAt(0).toUpperCase() + owner.slang.slice(1)}
+                </p>
               </div>
             </div>
             <div className='flex justify-between px-4 py-2 gap-4 '>

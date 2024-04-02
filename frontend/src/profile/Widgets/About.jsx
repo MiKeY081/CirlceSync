@@ -1,5 +1,12 @@
 import React from "react";
-import { FaEnvelope, FaUser, FaPhone, FaCalendar } from "react-icons/fa"; // Import font awesome icons
+import {
+  FaEnvelope,
+  FaUser,
+  FaPhone,
+  FaCalendar,
+  FaPenFancy,
+} from "react-icons/fa"; // Import font awesome icons
+import { CgUserlane } from "react-icons/cg"; // Import font awesome icons
 import { FormattedDate } from "../../assets/Functions/DateFunctions";
 
 const About = ({ owner, joinedDate }) => {
@@ -10,13 +17,13 @@ const About = ({ owner, joinedDate }) => {
       </div>
       <div className='py-4 px-6'>
         <p className='text-gray-700 flex items-center'>
-          <FaEnvelope className='mr-2' />
+          <CgUserlane className='mr-2' />
           {owner.name}
         </p>
       </div>
       <div className='py-4 px-6'>
         <p className='text-gray-700 flex items-center'>
-          <FaEnvelope className='mr-2' />
+          <FaPenFancy className='mr-2' />
           {owner.slang}
         </p>
       </div>
