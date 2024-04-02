@@ -7,7 +7,6 @@ const getPosts = async (req, res) => {
       User: true,
       comment: true,
     },
-    take: 10,
     sortBy: { createdAt: "desc" },
   });
   try {
