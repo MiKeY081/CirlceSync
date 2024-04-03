@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
 
 export default function BasicMenu() {
+  const { setUser } = React.useContext(UserContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -55,7 +56,7 @@ export default function BasicMenu() {
               to={"/posts"}
               onClick={(e) => {
                 handlelogout();
-                user = null;
+                setUser("");
               }}
               className='flex items-center gap-3'
             >

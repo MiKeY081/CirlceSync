@@ -8,13 +8,34 @@ import Posts from "./posts/Posts";
 import { SearchContext } from "./Context/SearchContext";
 import { useNavigate } from "react-router-dom";
 import Login from "./login/Login";
+import { HashLoader } from "react-spinners";
 
 const Home = () => {
-  const { user } = useContext(UserContext);
+  const [user, setUser] = useState();
   const users = useContext(SearchContext);
   const [followers, setFollowers] = useState([]);
   const [suggestedUsers, setSuggestedUsers] = useState();
   const navigate = useNavigate();
+  const [isLoadingUser, setIsLoadingUser] = useState(false);
+
+  useEffect(() => {
+    const handlefetchProfile = async () => {
+      try {
+        const { data } = await axios.get(`/user/getUser`);
+        if (data.success) {
+          setIsLoadingUser(true);
+          setUser(data.user);
+        } else {
+          navigate("/user/login");
+          console.log(error);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    handlefetchProfile();
+  }, []);
+
   useEffect(() => {
     if (user) {
       handleGetFollowers();
@@ -44,10 +65,10 @@ const Home = () => {
     }
   };
 
-  return user ? (
+  return isLoadingUser ? (
     <div className='container mx-auto mt-8 flex justify-center min-h-screen'>
       {/* Left-sided div */}
-      <div className='w-1/4 mr-4 bg-gray-100 rounded-md p-4 min-h-[500px]'>
+      <div className='w-1/4 mr-4 bg-gray-100 rounded-md p-4 max-h-[500px]'>
         <UserTab user={user} />
         <FollowersPanel followers={followers} />
       </div>
@@ -60,7 +81,7 @@ const Home = () => {
       {/* Right-sided div */}
       <div className='w-1/4 ml-4 bg-gray-100 rounded-md p-4 h-[500px]'>
         <h2 className='text-xl font-semibold mb-4'>Suggested for you</h2>
-        <div className='grid grid-cols-1 gap-4 h-[400px] overflow-hidden'>
+        <div className='grid grid-cols-1 gap-4 h-[400px] overflow-auto'>
           {suggestedUsers?.map((user) => (
             <UserTab key={user.id} user={user} />
           ))}
@@ -68,7 +89,9 @@ const Home = () => {
       </div>
     </div>
   ) : (
-    <Login />
+    <div className='min-h-screen min-w-screen flex items-center justify-center '>
+      <HashLoader color='#999999' />
+    </div>
   );
 };
 

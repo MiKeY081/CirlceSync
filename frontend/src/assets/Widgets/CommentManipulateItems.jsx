@@ -9,6 +9,8 @@ import ArchiveIcon from "@mui/icons-material/Archive";
 import IconButton from "@mui/material/IconButton";
 import Comments from "../../posts/Comments";
 import { handleDeleteComment } from "../../Api/ApiReqest";
+import PostCard from "../../components/PostCard";
+import CommentInputBox from "../../posts/CommentInputBox";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -71,7 +73,7 @@ export default function CommentManipulateItems({ id, comment, setComments }) {
 
   return (
     <div className='flex flex-col gap-4'>
-      <div>
+      <div className='block'>
         <IconButton
           aria-label='more'
           id='long-button'
@@ -116,11 +118,9 @@ export default function CommentManipulateItems({ id, comment, setComments }) {
           <MenuItem onClick={handleClose} disableRipple></MenuItem>
         </StyledMenu>
       </div>
-      {isEditFormOpen && (
-        <div className='relative z-50 '>
-          <Comments comment={comment} commentId={id} />
-        </div>
-      )}
+      <div className=' '>
+        {isEditFormOpen && <CommentInputBox comment={comment} commentId={id} />}
+      </div>
     </div>
   );
 }

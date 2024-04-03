@@ -47,8 +47,7 @@ const createComment = async (req, res) => {
       const notification = sendNofication(
         "comment",
         "commented in your post",
-        post.userId,
-        id
+        post.userId
       );
       res.send({
         success: true,

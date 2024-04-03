@@ -11,7 +11,6 @@ const NotificationDropdown = () => {
   const [notifications, setNotifications] = useState([]);
   const [senders, setSenders] = useState([]);
   const [isClicked, setIsClicked] = useState(false); // State to track if button is clicked
-
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
     setIsClicked(true); // Set isClicked to true when button is clicked
@@ -88,11 +87,13 @@ const NotificationDropdown = () => {
           {notifications.length > 0 ? (
             notifications.map((notification, index) => (
               <div key={index} className='flex items-center flex-col mb-3'>
-                {senders[index] && <UserTab user={senders[index]} />}
-                <Typography className='text-gray-800 ml-2'>
-                  {senders[index] ? senders[index].name : "Someone"}:{" "}
-                  {notification.message}
-                </Typography>
+                {senders[index] && (
+                  <UserTab user={senders[index]}>
+                    <Typography className='text-gray-800 ml-2'>
+                      {notification.message}
+                    </Typography>
+                  </UserTab>
+                )}
               </div>
             ))
           ) : (

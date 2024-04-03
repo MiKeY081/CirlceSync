@@ -5,14 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { UserContext } from "../Context/UserContext";
 import PostOwnerTab from "./PostOwnerTab";
-import CreatePostTouch from "../posts/Widget/CreatePostTouch";
 import Comments from "../posts/Comments";
 
-const PostCard = ({ post, setPosts }) => {
+const PostCard = ({ post, setPosts, comment }) => {
   const [owner, setOwner] = useState();
   const { user } = useContext(UserContext);
   const [isLoved, setIsLoved] = useState(false);
-
+  const [showMoreCaption, setShowMoreCaption] = useState(false);
+  const navigate = useNavigate();
   const getUser = async () => {
     try {
       const id = post?.userId;
@@ -31,7 +31,7 @@ const PostCard = ({ post, setPosts }) => {
   useEffect(() => {
     getUser();
   }, []);
-  const navigate = useNavigate();
+
   const gotoPost = (id) => () => {
     navigate(`/post/${id}`);
   };
@@ -82,9 +82,24 @@ const PostCard = ({ post, setPosts }) => {
       <div className='relative group w-5/6 rounded-lg overflow-hidden shadow-md bg-white hover:shadow-lg transition-all duration-300 mb-6 px-4'>
         <PostOwnerTab owner={owner} post={post} setPosts={setPosts} />
         {post.caption && (
-          <h3 className='text-lg font-medium text-gray-900 my-3'>
-            {post?.caption}
-          </h3>
+          <div className='text-lg font-medium text-gray-900 my-3 capitalize'>
+            {post?.caption.length < 100 ? (
+              <span>{post?.caption}</span>
+            ) : (
+              <div>
+                <span>{post.caption.slice(0, 100)}</span>
+                {showMoreCaption ? (
+                  <span onClick={setShowMoreCaption(!showMoreCaption)}>
+                    Show more...
+                  </span>
+                ) : (
+                  <span onClick={setShowMoreCaption(!showMoreCaption)}>
+                    Show less...
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
         )}
         {post.images[0] && (
           <div className='w-full h-96 object-cover rounded-t-lg group-hover:rounded-lg hover:rounded-lg transition-all duration-300 overflow-hidden'>
@@ -139,7 +154,7 @@ const PostCard = ({ post, setPosts }) => {
           </div>
         </div>
         <div className='py-3'>
-          <Comments post={post} />
+          <Comments post={post} comment={comment} postId={post.Id} />
         </div>
       </div>
     )

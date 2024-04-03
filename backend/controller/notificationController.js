@@ -1,6 +1,6 @@
 import { prisma } from "../prismaconfig/config.js";
 
-const sendNofication = async (type, message, receiverId, senderId) => {
+const sendNofication = async (type, message, receiverId, senderId, postId) => {
   try {
     const notification = await prisma.notification.create({
       data: {

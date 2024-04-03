@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import PostForm from "./PostForm";
 import { UserContext } from "../Context/UserContext";
+import { HashLoader } from "react-spinners";
 
 const Posts = () => {
   const { user } = useContext(UserContext);
@@ -33,7 +34,11 @@ const Posts = () => {
   return (
     <div className='w-full'>
       <PostForm className='relative' setPosts={setPosts} />
-      {loading && <p className='text-center'>Loading...</p>}
+      {loading && (
+        <div className='min-w-screen min-h-screen flex justify-center items-center'>
+          <HashLoader color='#999999' />
+        </div>
+      )}
       {!loading && posts.length === 0 && (
         <p className='text-center'>No posts found.</p>
       )}

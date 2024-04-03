@@ -2,9 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Profile from "./Profile";
 import axios from "axios";
+import { HashLoader } from "react-spinners";
 
 const LoadProfile = () => {
   const [user, setUser] = useState();
+  const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
   useEffect(() => {
     fetchProfileById();
@@ -15,6 +17,7 @@ const LoadProfile = () => {
       if (id) {
         const { data } = await axios.get(`/user/getuser/${id}`);
         if (data.success) {
+          setIsLoading(false);
           setUser(data.user);
         }
       }
@@ -22,12 +25,14 @@ const LoadProfile = () => {
       console.log(error);
     }
   };
-  return (
-    user && (
-      <div className='min-h-screen min-w-2/3'>
-        <Profile owner={user} profileParamsId={id} />
-      </div>
-    )
+  return !isLoading ? (
+    <div className='min-h-screen min-w-2/3'>
+      <Profile owner={user} profileParamsId={id} />
+    </div>
+  ) : (
+    <div className='min-w-screen min-h-screen flex justify-center items-center'>
+      <HashLoader color='#999999' />
+    </div>
   );
 };
 

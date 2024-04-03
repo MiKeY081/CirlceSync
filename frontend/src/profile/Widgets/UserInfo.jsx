@@ -34,12 +34,14 @@ const UserInfo = ({ owner, followers, setFollowers }) => {
               <h1 className='text-2xl font-semibold capitalize'>
                 {owner.name}
               </h1>
-              <div className='flex flex-row justify-start items-center gap-4'>
-                <FaPenFancy />
-                <p className='text-xl font-semibold'>
-                  {owner.slang.charAt(0).toUpperCase() + owner.slang.slice(1)}
-                </p>
-              </div>
+              {owner.slang && (
+                <div className='flex flex-row justify-start items-center gap-4'>
+                  <FaPenFancy />
+                  <p className='text-xl font-semibold'>
+                    {owner.slang.charAt(0).toUpperCase() + owner.slang.slice(1)}
+                  </p>
+                </div>
+              )}
             </div>
             <div className='flex justify-between px-4 py-2 gap-4 '>
               <FollowersPanel followers={followers} />

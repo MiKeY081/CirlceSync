@@ -10,6 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
 import PostForm from "../../posts/PostForm";
 import { handleDeletePost } from "../../Api/ApiReqest";
+import { Backdrop } from "@mui/material";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -118,9 +119,15 @@ export default function PostManipulateItems({ id, post, setPosts }) {
         </StyledMenu>
       </div>
       {isEditFormOpen && (
-        <div className='relative z-50 -left-[450px]'>
-          <PostForm post={post} setPosts={setPosts} />
-        </div>
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          className='absolute min-w-[500px] min-h-64 py-10 mx-auto flex justify-center items-center text-gray-600 z-20'
+          open={isEditFormOpen}
+        >
+          <div className='bg-white text-gray-800'>
+            <PostForm post={post} setPosts={setPosts} />
+          </div>
+        </Backdrop>
       )}
     </div>
   );
