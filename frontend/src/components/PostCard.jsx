@@ -79,10 +79,15 @@ const PostCard = ({ post, setPosts, comment }) => {
 
   return (
     post && (
-      <div className='relative group w-5/6 rounded-lg overflow-hidden shadow-md bg-white hover:shadow-lg transition-all duration-300 mb-6 px-4'>
-        <PostOwnerTab owner={owner} post={post} setPosts={setPosts} />
+      <div className='relative group w-full rounded-lg overflow-hidden shadow-md bg-white hover:shadow-lg transition-all duration-300 mt-4 px-4'>
+        <PostOwnerTab
+          owner={owner}
+          post={post}
+          setPosts={setPosts}
+          className='mb-3'
+        />
         {post.caption && (
-          <div className='text-lg font-medium text-gray-900 my-3 capitalize'>
+          <div className='text-lg font-medium text-gray-900 capitalize'>
             {post?.caption.length < 100 ? (
               <span>{post?.caption}</span>
             ) : (

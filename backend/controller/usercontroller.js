@@ -69,39 +69,42 @@ const login = async (req, res) => {
         success: false,
         message: "Please fill all the fields",
       });
-    }
-    const user = await prisma.user.findUnique({
-      where: {
-        email,
-      },
-    });
-    {
-      if (matchPassword(user.password, password)) {
-        const token = jwt.sign(
-          {
-            id: user.id,
+    } else {
+      {
+        const user = await prisma.user.findUnique({
+          where: {
+            email,
           },
-          process.env.JWT_SECRET,
-          {
-            expiresIn: "7d",
-          }
-        );
-        res
-          .cookie("token", token, {
-            httpOnly: true,
-            secure: true,
-            sameSite: "none",
-          })
-          .send({
-            success: true,
-            message: "Login Successful!",
-            user,
-          });
-      } else {
-        res.send({
-          success: false,
-          message: "Invalid Credentials",
         });
+        if (user) {
+          if (matchPassword(user.password, password)) {
+            const token = jwt.sign(
+              {
+                id: user.id,
+              },
+              process.env.JWT_SECRET,
+              {
+                expiresIn: "7d",
+              }
+            );
+            res
+              .cookie("token", token, {
+                httpOnly: true,
+                secure: true,
+                sameSite: "none",
+              })
+              .send({
+                success: true,
+                message: "Login Successful!",
+                user,
+              });
+          }
+        } else {
+          res.send({
+            success: false,
+            message: "Invalid Credentials",
+          });
+        }
       }
     }
   } catch (error) {

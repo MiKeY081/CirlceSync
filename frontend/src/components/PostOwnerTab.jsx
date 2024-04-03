@@ -30,7 +30,7 @@ const PostOwnerTab = ({ owner, post, setPosts }) => {
   };
 
   return (
-    <div className='flex items-center justify-between cursor-pointer p-2 border-b border-gray-200 hover:bg-gray-100 transition duration-300 ease-in-out'>
+    <div className='flex items-center justify-between cursor-pointer sm:px-1 lg:px-4 border-b border-gray-200 hover:bg-gray-100 transition duration-300 ease-in-out'>
       <div className='flex items-center'>
         <div className='mr-4'>
           {loadingOwner ? (
