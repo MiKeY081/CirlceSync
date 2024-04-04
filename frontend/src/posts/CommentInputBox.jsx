@@ -49,7 +49,7 @@ const CommentInputBox = ({
 
   return (
     user && (
-      <div className='comment-input flex items-center mt-1'>
+      <div className='comment-input flex items-center mt-1 [&>*]:dark:bg-gray-36 dark:bg-gray-36'>
         <div className='avatar-wrapper mr-3'>
           {user.image ? (
             <img
@@ -61,14 +61,14 @@ const CommentInputBox = ({
             <FaUserCircle className='avatar rounded-full text-gray-500' />
           )}
         </div>
-        <div className='flex items-center w-full bottom-1'>
+        <div className='flex items-center w-full bottom-1 [&>*]:dark:bg-gray-36'>
           <input
             type='text'
             placeholder='Add your comment'
             id={post?.id}
             value={comment}
             maxLength={200} // Limiting comment length to 200 characters
-            className='bg-transparent focus:outline-none flex-grow transition-all duration-300 border-b border-gray-300 focus:border-blue-500 px-2 py-1 rounded-lg'
+            className='bg-gray-58 outline-none flex-grow transition-all duration-300 border-b border-gray-500 focus:border-gray-500 px-2 py-1 rounded-lg'
             onChange={(e) => setComment(e.target.value)}
           />
           <span className='text-xs text-gray-400 mr-2'>

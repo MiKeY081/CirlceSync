@@ -35,14 +35,16 @@ const Posts = () => {
     <div className='w-full'>
       <PostForm className='relative' setPosts={setPosts} />
       {loading && (
-        <div className='min-w-screen min-h-screen flex justify-center items-center'>
+        <div className='min-w-screen min-h-screen flex justify-center items-center dark:bg-gray-24 dark:text-white'>
           <HashLoader color='#999999' />
         </div>
       )}
       {!loading && posts.length === 0 && (
-        <p className='text-center'>No posts found.</p>
+        <p className='text-center  dark:bg-gray-24 dark:text-white'>
+          No posts found.
+        </p>
       )}
-      <div className='flex flex-col justify-center items-center'>
+      <div className='flex flex-col justify-center items-center  dark:bg-gray-24 dark:text-white'>
         {posts.map((post, index) => (
           <PostCard key={index} post={post} setPosts={setPosts} />
         ))}

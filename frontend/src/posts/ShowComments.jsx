@@ -19,19 +19,22 @@ const ShowComments = ({ post }) => {
 
   return (
     user && (
-      <>
+      <div className='dark:bg-gray-36'>
         {comments?.length > 0 && (
           <>
             {showAllComments ? (
               <>
                 <button
                   onClick={toggleShowAllComments}
-                  className='text-sm text-gray-600 mb-2 show-less-btn'
+                  className='text-sm text-gray-600 mb-2 show-less-btn dark:bg-gray-36'
                 >
                   Show less
                 </button>
                 {comments?.map((obj, index) => (
-                  <div key={index} className='comment flex items-start mb-3'>
+                  <div
+                    key={index}
+                    className='comment flex items-start mb-3 dark:bg-gray-36'
+                  >
                     {obj?.userId && (
                       <div className='flex w-full justify-between'>
                         <UserTab userId={obj?.userId}>
@@ -65,14 +68,14 @@ const ShowComments = ({ post }) => {
             ) : (
               <button
                 onClick={toggleShowAllComments}
-                className='text-sm text-gray-600 mb-1 view-more-btn'
+                className='text-sm text-gray-600 mb-1 view-more-btn dark:bg-gray-36'
               >
                 View comments
               </button>
             )}
           </>
         )}
-      </>
+      </div>
     )
   );
 };

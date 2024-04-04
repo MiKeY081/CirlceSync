@@ -42,27 +42,29 @@ const FollowersPanel = ({ followers, open }) => {
   return !open ? (
     <div className='relative'>
       <div
-        className='bg-gray-200 px-4 py-2 rounded cursor-pointer hover:bg-gray-300 flex items-center justify-between transition duration-300 '
+        className='bg-gray-200 px-4 py-2 rounded cursor-pointer hover:bg-gray-300 flex items-center justify-between transition duration-300  dark:bg-gray-24 dark:text-white '
         onClick={toggleBox}
       >
-        <span className='text-gray-800'>{followers?.length} Followers</span>
+        <span className='text-gray-800 dark:text-gray-200'>
+          {followers?.length} Followers
+        </span>
         <FaUserFriends className='text-gray-600 ml-2' />
       </div>
       {isOpen && (
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          className='relative'
+          className='relative '
           open={isOpen}
         >
-          <div className='relative p-2 bg-slate-200 rounded-lg gap-4 flex flex-col px-10 py-2 min-w-96'>
+          <div className='relative p-2 bg-slate-200 rounded-lg gap-4 flex flex-col px-10 py-2 min-w-96  dark:bg-gray-24 dark:text-white'>
             <button
-              className='absolute top-0 right-0 mr-2 mt-2 text-black hover:text-gray-800 transition duration-300'
+              className='absolute top-0 right-0 mr-2 mt-2 text-black hover:text-gray-800 transition duration-300 dark:text-gray-200'
               onClick={toggleBox}
             >
               <FaTimes />
             </button>
             {follower?.length > 0 && (
-              <h1 className='text-gray-800 font-semibold p-2 text-lg'>
+              <h1 className='text-gray-800 font-semibold p-2 text-lg dark:text-gray-200'>
                 Followers
               </h1>
             )}
@@ -75,14 +77,16 @@ const FollowersPanel = ({ followers, open }) => {
                 <UserTab key={index} user={user} className='border-black' />
               ))
             ) : (
-              <p className='text-gray-600'>No followers yet.</p>
+              <p className='text-gray-600 dark:text-gray-200'>
+                No followers yet.
+              </p>
             )}
           </div>
         </Backdrop>
       )}
     </div>
   ) : (
-    <div className='flex flex-col'>
+    <div className='flex flex-col  dark:bg-gray-24 dark:text-white'>
       <h2 className='text-2xl font-bold mb-4'>Followers</h2>
       <div className='grid grid-cols-2 gap-4'>
         {isLoading ? (
@@ -92,7 +96,7 @@ const FollowersPanel = ({ followers, open }) => {
         ) : follower?.length > 0 ? (
           follower.map((user, index) => <UserCard key={index} user={user} />)
         ) : (
-          <p className='text-gray-600'>No followers yet.</p>
+          <p className='text-gray-600 dark:text-gray-200'>No followers yet.</p>
         )}
       </div>
     </div>

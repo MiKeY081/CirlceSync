@@ -16,7 +16,7 @@ const Comments = ({
 
   return (
     user && (
-      <div className='mt-1 p-0 '>
+      <div className='mt-1 p-0 dark:bg-gray-36 '>
         <ShowComments post={post} />
         <CommentInputBox post={post} comment={existingComment} />
       </div>

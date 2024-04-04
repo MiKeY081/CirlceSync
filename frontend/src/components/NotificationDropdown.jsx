@@ -50,22 +50,19 @@ const NotificationDropdown = () => {
   }, [notifications]);
 
   return (
-    <div className='relative'>
-      <IconButton
-        color='inherit'
+    <div className='relative dark:text-white'>
+      <div
         onClick={handlePopoverOpen}
-        aria-controls={open ? "notification-menu" : undefined}
-        aria-haspopup='true'
-        className='outline-none focus:outline-none'
+        className='outline-none focus:outline-none dark:bg-gray-58'
       >
         {/* Use Badge component to show notification count */}
         <Badge
           color='secondary'
           badgeContent={isClicked ? 0 : notifications.length}
         >
-          <AiOutlineBell className='text-2xl text-white' />
+          <AiOutlineBell className='text-2xl dark:bg-gray-58 text-gray-800' />
         </Badge>
-      </IconButton>
+      </div>
       <Popover
         id='notification-menu'
         open={open}
@@ -82,14 +79,15 @@ const NotificationDropdown = () => {
         PaperProps={{
           className: "bg-white rounded-md shadow-md",
         }}
+        className='dark:text-gray-300 dark:hover:text-gray-200 dark:bg-transparent'
       >
-        <div className='p-4'>
+        <div className='p-4 dark:bg-gray-58'>
           {notifications.length > 0 ? (
             notifications.map((notification, index) => (
               <div key={index} className='flex items-center flex-col mb-3'>
                 {senders[index] && (
                   <UserTab user={senders[index]}>
-                    <Typography className='text-gray-800 ml-2'>
+                    <Typography className='text-gray-800 ml-2 dark:text-gray-200'>
                       {notification.message}
                     </Typography>
                   </UserTab>
@@ -97,7 +95,9 @@ const NotificationDropdown = () => {
               </div>
             ))
           ) : (
-            <Typography className='text-gray-800'>No notifications</Typography>
+            <Typography className='text-gray-800 dark:text-gray-200'>
+              No notifications
+            </Typography>
           )}
         </div>
       </Popover>

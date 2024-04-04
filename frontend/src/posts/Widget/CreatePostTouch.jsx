@@ -8,7 +8,7 @@ const CreatePostTouch = ({ placeholder }) => {
 
   return (
     user && (
-      <div className='flex items-center border border-gray-300 rounded-lg px-4 py-2'>
+      <div className='flex items-center border border-gray-300 rounded-lg px-4 py-2 dark:bg-gray-60'>
         {user.image ? (
           <img
             src={user.image}
@@ -18,15 +18,18 @@ const CreatePostTouch = ({ placeholder }) => {
         ) : (
           <FaUserCircle className='w-10 h-10 text-gray-500 mr-3' />
         )}
-        <div className='flex items-center'>
-          <FiCamera className='text-gray-500 mr-2' />
-          <label htmlFor='' className='text-gray-500 cursor-pointer'>
+        <div className='flex items-center dark:bg-gray-60'>
+          <FiCamera className='text-gray-500 mr-2 dark:bg-gray-60' />
+          <label
+            htmlFor=''
+            className='text-gray-500 cursor-pointer dark:bg-gray-60'
+          >
             {placeholder ? placeholder : "What's on your mind?"}
           </label>
           <input
             type='hidden'
             placeholder={placeholder ? placeholder : "What's on your mind?"}
-            className='bg-transparent focus:outline-none flex-grow'
+            className=' focus:outline-none flex-grow dark:bg-gray-60'
           />
         </div>
       </div>

@@ -10,7 +10,8 @@ import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
 import PostForm from "../../posts/PostForm";
 import { handleDeletePost } from "../../Api/ApiReqest";
-import { Backdrop } from "@mui/material";
+import { Backdrop, Popover } from "@mui/material";
+import { MdMoreVert } from "react-icons/md";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -72,59 +73,66 @@ export default function PostManipulateItems({ id, post, setPosts }) {
   };
 
   return (
-    <div className='flex flex-col gap-4'>
-      <div>
-        <IconButton
-          aria-label='more'
-          id='long-button'
-          aria-controls={open ? "long-menu" : undefined}
-          aria-expanded={open ? "true" : undefined}
-          aria-haspopup='true'
+    <div className='flex flex-col gap-4  [&>*]:dark:bg-gray-36 dark:bg-gray-36'>
+      <div className=''>
+        <div
           onClick={handleClick}
+          className='outline-none focus:outline-none dark:bg-gray-36'
         >
-          <MoreVertIcon />
-        </IconButton>
-        <StyledMenu
-          id='demo-customized-menu'
-          MenuListProps={{
-            "aria-labelledby": "demo-customized-button",
-          }}
-          anchorEl={anchorEl}
+          <MdMoreVert className='text-2xl scale-125 text-gray-500 dark:text-gray-100 dark:bg-gray-36 rounded-full' />
+        </div>
+        <Popover
+          id='notification-menu'
           open={open}
+          anchorEl={anchorEl}
           onClose={handleClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "right",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          PaperProps={{
+            className: "bg-white rounded-md shadow-md",
+          }}
+          className='dark:text-gray-300 dark:bg-transparent '
         >
-          <MenuItem
-            onClick={(e) => {
-              setIsEditFormOpen(!isEditFormOpen);
-              handleClose();
-            }}
-            disableRipple
-          >
-            <EditIcon />
-            Edit Post
-          </MenuItem>
+          <div className='py-4 px-8 dark:bg-gray-58 rounded-md'>
+            <MenuItem
+              onClick={(e) => {
+                setIsEditFormOpen(!isEditFormOpen);
+                handleClose();
+              }}
+              disableRipple
+            >
+              <EditIcon className='dark:bg-gray-58' />
+              Edit Post
+            </MenuItem>
 
-          <Divider sx={{ my: 0.5 }} />
-          <MenuItem
-            onClick={(e) => {
-              handleDelete(id);
-              handleClose();
-            }}
-            disableRipple
-          >
-            <ArchiveIcon />
-            Archive
-          </MenuItem>
-          <MenuItem onClick={handleClose} disableRipple></MenuItem>
-        </StyledMenu>
+            <Divider sx={{ my: 0.5 }} />
+            <MenuItem
+              onClick={(e) => {
+                handleDelete(id);
+                handleClose();
+              }}
+              disableRipple
+            >
+              <ArchiveIcon className='dark:bg-gray-58' />
+              Archive
+            </MenuItem>
+            <MenuItem onClick={handleClose} disableRipple></MenuItem>
+          </div>
+        </Popover>
       </div>
       {isEditFormOpen && (
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          className='absolute min-w-[500px] min-h-64 py-10 mx-auto flex justify-center items-center text-gray-600 z-20'
+          className='absolute min-w-[500px] min-h-64 py-10 mx-auto flex justify-center items-center text-gray-600 z-20 bg-transparent'
           open={isEditFormOpen}
         >
-          <div className='bg-white text-gray-800'>
+          <div className=''>
             <PostForm post={post} setPosts={setPosts} />
           </div>
         </Backdrop>

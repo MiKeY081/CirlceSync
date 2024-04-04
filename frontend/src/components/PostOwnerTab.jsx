@@ -30,9 +30,9 @@ const PostOwnerTab = ({ owner, post, setPosts }) => {
   };
 
   return (
-    <div className='flex items-center justify-between cursor-pointer sm:px-1 lg:px-4 border-b border-gray-200 hover:bg-gray-100 transition duration-300 ease-in-out'>
-      <div className='flex items-center'>
-        <div className='mr-4'>
+    <div className='flex items-center justify-between cursor-pointer sm:px-1 lg:px-4 dark:bg-gray-36 hover:bg-gray-100 transition duration-300 ease-in-out my-2 *:dark:bg-gray-36 '>
+      <div className='flex items-center dark:bg-gray-36'>
+        <div className='mr-4 dark:bg-gray-36 '>
           {loadingOwner ? (
             <Skeleton variant='circular' width={40} height={40} />
           ) : owner?.image ? (
@@ -54,11 +54,11 @@ const PostOwnerTab = ({ owner, post, setPosts }) => {
             </div>
           ) : (
             owner && (
-              <div className='flex flex-col'>
-                <h4 className='text-md font-semibold text-gray-800 mb-1'>
+              <div className='flex flex-col text-gray-800 dark:text-gray-300 dark:bg-gray-36'>
+                <h4 className='text-md font-semibold  mb-1 dark:bg-gray-36'>
                   {owner.name}
                 </h4>
-                <p className='text-[10px] text-gray-800 font-semibold'>
+                <p className='text-[10px] font-semibold dark:bg-gray-36'>
                   {revealDate}
                 </p>
               </div>

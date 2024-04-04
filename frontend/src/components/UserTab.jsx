@@ -44,7 +44,7 @@ const UserTab = ({ user, userId, children }) => {
   }, [userId, user]);
 
   return (
-    <div className='flex items-center justify-between cursor-pointer p-2 border-b border-gray-200 hover:bg-gray-200 hover:rounded-lg transition duration-300 ease-in w-full'>
+    <div className='flex items-center justify-between cursor-pointer p-2   dark:bg-gray-24 dark:text-white text-gray-900 border-b border-gray-200 hover:bg-gray-200 transition duration-300 ease-in w-full'>
       {loading ? (
         <div className='flex items-center gap-4'>
           <Skeleton variant='circular' width={40} height={40} />
@@ -69,7 +69,7 @@ const UserTab = ({ user, userId, children }) => {
             </div>
             <div>
               {owner && (
-                <h4 className='text-md font-semibold text-gray-800 hover:text-blue-600 mb-1'>
+                <h4 className='text-md font-semibold dark:text-gray-200 text-gray-800 hover:text-blue-400 mb-1'>
                   {owner.name}
                 </h4>
               )}
