@@ -9,7 +9,7 @@ import Skeleton from "@mui/material/Skeleton";
 
 const UserAvatar = () => {
   return (
-    <FaUserCircle className='text-gray-500 text-4xl [&>*]:dark:bg-gray-60' />
+    <FaUserCircle className='text-gray-500 text-4xl [&>*]:dark:bg-gray-58' />
   );
 };
 
@@ -34,7 +34,7 @@ const PostOwnerTab = ({ owner, post, setPosts }) => {
   return (
     <div className='flex items-center justify-between cursor-pointer sm:px-1 lg:px-4 dark:bg-gray-36 hover:bg-gray-100 transition duration-300 ease-in-out my-2 *:dark:bg-gray-36 '>
       <div className='flex items-center dark:bg-gray-36'>
-        <div className='mr-4 dark:bg-gray-36 [&>*]:dark:bg-gray-60 '>
+        <div className='mr-4 dark:bg-gray-36 [&>*]:dark:bg-gray-58 '>
           {loadingOwner ? (
             <Skeleton
               variant='circular'

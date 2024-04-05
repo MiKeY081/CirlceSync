@@ -61,22 +61,22 @@ const CommentInputBox = ({
             <FaUserCircle className='avatar rounded-full dark:text-gray-500' />
           )}
         </div>
-        <div className='flex items-center w-full bottom-1 [&>*]:dark:bg-gray-36'>
+        <div className='flex items-center w-full bottom-1 dark:bg-gray-58'>
           <input
             type='text'
             placeholder='Add your comment'
             id={post?.id}
             value={comment}
             maxLength={200} // Limiting comment length to 200 characters
-            className='dark:bg-gray-58 outline-none flex-grow transition-all duration-300 border-b  dark:border-gray-60 dark:focus:border-gray-60  px-2 py-1 rounded-lg'
+            className='dark:bg-gray-60 outline-none flex-grow transition-all duration-300 border-b  dark:border-gray-60 dark:focus:border-gray-60   px-2 py-1 rounded-lg'
             onChange={(e) => setComment(e.target.value)}
           />
-          <span className='text-xs dark:text-gray-400 mr-2'>
+          <span className='text-xs ml-2 dark:bg-gray-58 dark:text-gray-400 mr-2'>
             {comment.length}/200
           </span>
           <BiPaperPlane
             onClick={(e) => handleComment(post?.id)}
-            className='cursor-pointer text-blue-500 dark:text-gray-300 transition-all duration-300 transform hover:scale-125 scale-110'
+            className='cursor-pointer text-blue-500 dark:text-gray-300 transition-all duration-300 transform hover:scale-125 scale-110 dark:bg-gray-58'
             tabIndex={1}
           />
         </div>
