@@ -6,6 +6,8 @@ import { handlelogout } from "../../Api/ApiReqest";
 import { AiOutlineLogin, AiOutlineLogout, AiOutlineUser } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 
 export default function BasicMenu() {
   const { setUser } = React.useContext(UserContext);
@@ -14,9 +16,20 @@ export default function BasicMenu() {
   const open = Boolean(anchorEl);
 
   const handleToggleTheme = () => {
-    document.body.classList.toggle("dark");
-    setToggleTheme(toggleTheme !== "dark" ? "dark" : "light");
+    const newTheme = toggleTheme !== "dark" ? "dark" : "light";
+    document.body.classList.toggle("dark", newTheme === "dark");
+    localStorage.setItem("theme", newTheme);
+    setToggleTheme(newTheme);
   };
+
+  // To retrieve the theme preference on component mount
+  React.useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      setToggleTheme(savedTheme);
+      document.body.classList.toggle("dark", savedTheme === "dark");
+    }
+  }, []);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -47,12 +60,15 @@ export default function BasicMenu() {
         <div onClick={handleClose} className='text-gray-800 dark:text-white'>
           <Link
             to={`profile/${id}`}
-            className='block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600'
+            className='block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-60 [&>*]:dark:hover:bg-gray-60'
           >
             <AiOutlineUser className='inline-block w-5 h-5 mr-2' /> Profile
           </Link>
         </div>
-        <div onClick={handleClose} className='text-gray-800 dark:text-white'>
+        <div
+          onClick={handleClose}
+          className='text-gray-800 dark:text-white dark:hover:bg-gray-60 [&>*]:dark:hover:bg-gray-60'
+        >
           {user?.id ? (
             <Link
               to={"/posts"}
@@ -60,7 +76,7 @@ export default function BasicMenu() {
                 handlelogout();
                 setUser("");
               }}
-              className='block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600'
+              className='block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-60 [&>*]:dark:hover:bg-gray-60'
             >
               <AiOutlineLogout className='inline-block w-5 h-5 mr-2' /> Logout
             </Link>
@@ -73,12 +89,10 @@ export default function BasicMenu() {
             </Link>
           )}
         </div>
-        <div
-          onClick={handleToggleTheme}
-          className='text-gray-800 dark:text-white'
-        >
-          <span className='block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600'>
-            {toggleTheme !== "dark" ? "Dark" : "Light"} Theme
+        <div onClick={handleToggleTheme} className=' dark:text-white'>
+          <span className='block px-4 py-2 hover:bg-gray-200  dark:hover:bg-gray-60 [&>*]:dark:hover:bg-gray-60'>
+            {toggleTheme !== "dark" ? <Brightness4Icon /> : <Brightness7Icon />}{" "}
+            Theme
           </span>
         </div>
       </Menu>

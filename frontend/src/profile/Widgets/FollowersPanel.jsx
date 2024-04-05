@@ -42,13 +42,13 @@ const FollowersPanel = ({ followers, open }) => {
   return !open ? (
     <div className='relative'>
       <div
-        className='[&>*]:dark:bg-blue-500 dark:bg-blue-500 [&>*]:dark:hover:bg-blue-600 dark:hover:bg-blue-600 bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded cursor-pointer flex items-center justify-between transition duration-300  dark:text-white '
+        className='[&>*]:dark:bg-blue-500 dark:bg-blue-500 [&>*]:dark:hover:bg-blue-600 dark:hover:bg-blue-600 bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded cursor-pointer flex items-center justify-between transition duration-300 text-white dark:text-white '
         onClick={toggleBox}
       >
-        <span className=' text-gray-800 dark:text-gray-200 whitespace-nowrap'>
+        <span className=' dark:text-gray-200 whitespace-nowrap'>
           {followers?.length} Followers
         </span>
-        <FaUserFriends className='text-gray-600 ml-2 ' />
+        <FaUserFriends className='ml-2 ' />
       </div>
       {isOpen && (
         <Backdrop
