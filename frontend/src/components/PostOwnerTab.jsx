@@ -8,7 +8,9 @@ import { UserContext } from "../Context/UserContext";
 import Skeleton from "@mui/material/Skeleton";
 
 const UserAvatar = () => {
-  return <FaUserCircle className='text-gray-500 text-4xl' />;
+  return (
+    <FaUserCircle className='text-gray-500 text-4xl [&>*]:dark:bg-gray-60' />
+  );
 };
 
 const PostOwnerTab = ({ owner, post, setPosts }) => {
@@ -32,9 +34,14 @@ const PostOwnerTab = ({ owner, post, setPosts }) => {
   return (
     <div className='flex items-center justify-between cursor-pointer sm:px-1 lg:px-4 dark:bg-gray-36 hover:bg-gray-100 transition duration-300 ease-in-out my-2 *:dark:bg-gray-36 '>
       <div className='flex items-center dark:bg-gray-36'>
-        <div className='mr-4 dark:bg-gray-36 '>
+        <div className='mr-4 dark:bg-gray-36 [&>*]:dark:bg-gray-60 '>
           {loadingOwner ? (
-            <Skeleton variant='circular' width={40} height={40} />
+            <Skeleton
+              variant='circular'
+              width={40}
+              height={40}
+              className='[&>*]:dark:bg-gray-800'
+            />
           ) : owner?.image ? (
             <img
               className='rounded-full w-10 h-10 object-cover cursor-pointer'
@@ -48,7 +55,7 @@ const PostOwnerTab = ({ owner, post, setPosts }) => {
         </div>
         <div>
           {loadingOwner ? (
-            <div>
+            <div className='dark:bg-gray-36 [&>*]:dark:bg-gray-60'>
               <Skeleton variant='text' width={100} height={20} />
               <Skeleton variant='text' width={50} height={12} />
             </div>

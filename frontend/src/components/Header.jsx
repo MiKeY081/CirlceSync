@@ -42,7 +42,7 @@ const Header = () => {
         </label>
       </div>
 
-      <div className='flex items-center dark:text-white [&>*]:dark:bg-gray-58 dark:bg-gray-58 gap-3'>
+      <div className='flex items-center dark:text-white [&>*]:dark:bg-gray-58 dark:bg-gray-58 gap-8'>
         <NotificationDropdown className='mr-4 transition duration-300' />
         <UserItems />
       </div>

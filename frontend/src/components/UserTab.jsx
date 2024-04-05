@@ -44,9 +44,9 @@ const UserTab = ({ user, userId, children }) => {
   }, [userId, user]);
 
   return (
-    <div className='flex items-center justify-between cursor-pointer p-2   dark:bg-gray-24 dark:text-white text-gray-900 border-b border-gray-200 hover:bg-gray-200 transition duration-300 ease-in w-full'>
+    <div className='flex items-center justify-between cursor-pointer p-2   dark:bg-gray-24 dark:text-white text-gray-900 border-b hover:bg-gray-200 transition duration-300 ease-in w-full'>
       {loading ? (
-        <div className='flex items-center gap-4'>
+        <div className='flex items-center gap-4 dark:bg-gray-24 [&>*]:dark:bg-gray-60'>
           <Skeleton variant='circular' width={40} height={40} />
           <Skeleton variant='text' width={100} height={30} />
         </div>

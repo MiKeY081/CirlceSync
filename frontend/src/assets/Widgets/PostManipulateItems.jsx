@@ -126,17 +126,7 @@ export default function PostManipulateItems({ id, post, setPosts }) {
           </div>
         </Popover>
       </div>
-      {isEditFormOpen && (
-        <Backdrop
-          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          className='absolute min-w-[500px] min-h-64 py-10 mx-auto flex justify-center items-center text-gray-600 z-20 bg-transparent'
-          open={isEditFormOpen}
-        >
-          <div className=''>
-            <PostForm post={post} setPosts={setPosts} />
-          </div>
-        </Backdrop>
-      )}
+      {isEditFormOpen && <PostForm post={post} setPosts={setPosts} />}
     </div>
   );
 }

@@ -33,10 +33,10 @@ const ShowComments = ({ post }) => {
                 {comments?.map((obj, index) => (
                   <div
                     key={index}
-                    className='comment flex items-start mb-3 dark:bg-gray-36'
+                    className='comment flex items-start mb-3 dark:bg-gray-36 rounded-lg'
                   >
                     {obj?.userId && (
-                      <div className='flex w-full justify-between'>
+                      <div className='flex w-full h-full justify-between rounded-full dark:bg-gray-36'>
                         <UserTab userId={obj?.userId}>
                           {comments[index]?.comment && (
                             <p className='comment-text text-sm'>

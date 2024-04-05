@@ -31,7 +31,7 @@ const LoadProfile = () => {
     </div>
   ) : (
     <div className='min-w-screen min-h-screen flex justify-center items-center'>
-      <HashLoader color='#999999' />
+      <HashLoader color='#999' />
     </div>
   );
 };

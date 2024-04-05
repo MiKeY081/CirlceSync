@@ -15,10 +15,10 @@ const UserPosts = ({ owner }) => {
   }, [owner]);
   return (
     owner && (
-      <div className='flex flex-col gap-4 items-center w-1/2'>
-        <div className='py-4 px-6'>
+      <div className='flex flex-col gap-4 md:items-start md:w-1/2 w-full'>
+        <div className='py-4 px-2 lg:px-6'>
           <h1 className='text-xl font-semibold'>Posts</h1>
-          <div className='w-[500px]'>
+          <div className='lg:w-[500px] min-w-full'>
             {paramId.id ? (
               <PostForm
                 placeholder={`Write something on ${owner.name}'s timeline`}
@@ -29,7 +29,7 @@ const UserPosts = ({ owner }) => {
           </div>
         </div>
         {posts.length === 0 ? (
-          <div className='py-4 px-6 w-full text-center'>
+          <div className='py-4  px-2 lg:px-6 w-full text-center'>
             <h1 className='text-lg font-semibold'>No Posts</h1>
           </div>
         ) : (

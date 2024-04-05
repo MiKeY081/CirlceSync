@@ -85,10 +85,10 @@ const PostForm = ({ post, placeholder, setPosts }) => {
       {isPopoverOpen && (
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          className='absolute min-w-[500px] min-h-64 py-10 mx-auto flex justify-center items-center text-gray-600 z-20'
+          className='absolute lg:min-w-[500px] lg:min-h-64 min-w-40 min-h-40 md:py-10 p-4 mx-auto flex justify-center items-center text-gray-600 z-20 m-2'
           open={isPopoverOpen}
         >
-          <div className='relative bg-white border border-gray-300 rounded shadow-lg  p-10 w-[500px] h-full'>
+          <div className='relative bg-white border border-gray-300 rounded shadow-lg  lg:p-10 md:p-6 p-4 md:w-[500px] md:h-full min-w-40 max-w-96 '>
             <FaTimes
               className='absolute top-0 right-0 m-2 text-gray-500 cursor-pointer hover:text-gray-700'
               onClick={togglePopover}
@@ -97,7 +97,7 @@ const PostForm = ({ post, placeholder, setPosts }) => {
               <div className='mb-6'>
                 <label
                   htmlFor='caption'
-                  className='block text-gray-700 font-bold mb-2'
+                  className='block text-gray-700 font-bold mb-2 '
                 >
                   Caption
                 </label>
@@ -115,7 +115,7 @@ const PostForm = ({ post, placeholder, setPosts }) => {
               <div className='mb-6'>
                 <label
                   htmlFor='image'
-                  className='block text-gray-700 font-bold mb-2'
+                  className='block text-gray-700 font-bold mb-2 whitespace-nowrap'
                 >
                   Image Upload
                 </label>
@@ -134,20 +134,23 @@ const PostForm = ({ post, placeholder, setPosts }) => {
                       key={index}
                       src={image}
                       alt='image'
-                      className='w-15 h-30 object-cover rounded-lg inline-block p-2 '
+                      className='min-w-15 min-h-30 object-cover rounded-lg inline-block p-2 '
                     />
                   ))}
                   <label
                     htmlFor='image'
-                    className='cursor-pointer bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md inline-flex items-center'
+                    className='cursor-pointer dark:bg-blue-700 bg-blue-700 hover:bg-blue-800 dark:hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-md inline-flex items-center'
                   >
-                    <FiImage className='mr-2' /> Upload Image
+                    <FiImage className='mr-2 dark:bg-blue-700 bg-blue-700 hover:bg-blue-800 dark:hover:bg-blue-800' />{" "}
+                    <span className='dark:bg-blue-700 bg-blue-700 hover:bg-blue-800'>
+                      Upload
+                    </span>
                   </label>
                 </div>
               </div>
               <button
                 type='submit'
-                className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded '
+                className='dark:bg-blue-700 dark:hover:bg-blue-800 bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded '
               >
                 Submit
               </button>

@@ -84,7 +84,10 @@ const NotificationDropdown = () => {
         <div className='p-4 dark:bg-gray-58'>
           {notifications.length > 0 ? (
             notifications.map((notification, index) => (
-              <div key={index} className='flex items-center flex-col mb-3'>
+              <div
+                key={index}
+                className='flex items-center flex-col mb-3 dark:bg-gray-58'
+              >
                 {senders[index] && (
                   <UserTab user={senders[index]}>
                     <Typography className='text-gray-800 ml-2 dark:text-gray-200'>

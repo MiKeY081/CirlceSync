@@ -68,7 +68,7 @@ const Home = () => {
   return isLoadingUser ? (
     <div className='container mx-auto  mt-8postownertab flex flex-col md:flex-row justify-center min-h-screen  dark:bg-gray-24 dark:text-white'>
       {/* Left-sided div */}
-      <div className='hidden md:block w-full md:mr-4 dark:bg-gray-24 dark:text-gray-200 bg-gray-100 rounded-md p-4 md:w-1/4'>
+      <div className='hidden md:block w-full md:mr-4 dark:bg-gray-24 dark:text-gray-200 bg-gray-100 rounded-md p-4 md:w-1/4  '>
         <UserTab user={user} />
         <FollowersPanel followers={followers} />
       </div>
@@ -79,7 +79,7 @@ const Home = () => {
       </div>
 
       {/* Right-sided div */}
-      <div className='hidden lg:block md:w-1/4 ml-4 dark:bg-gray-24 dark:text-gray-200 bg-gray-100 rounded-md p-4 md:h-auto'>
+      <div className='hidden lg:block md:w-1/4 ml-4 dark:bg-gray-24 dark:text-gray-200 bg-gray-100 rounded-md p-4 md:h-auto '>
         <h2 className='text-xl font-semibold mb-4'>Suggested for you</h2>
         <div className='grid grid-cols-1 gap-4 overflow-auto'>
           {suggestedUsers?.map((user) => (

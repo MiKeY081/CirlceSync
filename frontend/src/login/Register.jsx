@@ -63,7 +63,7 @@ const Register = () => {
         <div className='flex justify-between'>
           <button
             onClick={(e) => handleRegister(e)}
-            className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 mt-6 rounded'
+            className='dark:bg-blue-700 bg-blue-700 hover:bg-blue-800 dark:hover:bg-blue-800 text-white font-bold py-2 px-4 mt-6 rounded'
           >
             Register
           </button>

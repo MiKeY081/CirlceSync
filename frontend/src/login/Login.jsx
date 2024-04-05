@@ -58,14 +58,20 @@ const Login = () => {
         </div>
         <div className='flex justify-between '>
           <button
-            className='bg-blue-500 text-white rounded-md px-4 py-2'
+            className='dark:bg-blue-700 bg-blue-700 hover:bg-blue-800 dark:hover:bg-blue-800 text-white rounded-md px-4 py-2'
             onClick={() => handleLogin()}
           >
             Sign In
           </button>
-          <Link to={"/user/register"} className='text-blue-500  '>
+          <Link
+            to={"/user/register"}
+            className='dark:bg-blue-700 bg-blue-700 hover:bg-blue-800 dark:hover:bg-blue-800 '
+          >
             <span className='text-xs'>Don't have an account?</span>
-            <br /> <span className='flex justify-end'>Register</span>
+            <br />{" "}
+            <span className='flex justify-end dark:bg-blue-700 bg-blue-700 hover:bg-blue-800 dark:hover:bg-blue-800'>
+              Register
+            </span>
           </Link>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Menu from "@mui/material/Menu";
@@ -7,25 +7,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import Divider from "@mui/material/Divider";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import IconButton from "@mui/material/IconButton";
-import Comments from "../../posts/Comments";
-import { handleDeleteComment } from "../../Api/ApiReqest";
-import PostCard from "../../components/PostCard";
+import Popover from "@mui/material/Popover";
+import Backdrop from "@mui/material/Backdrop";
 import CommentInputBox from "../../posts/CommentInputBox";
+import { handleDeleteComment } from "../../Api/ApiReqest";
 
-const StyledMenu = styled((props) => (
-  <Menu
-    elevation={0}
-    anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "right",
-    }}
-    transformOrigin={{
-      vertical: "top",
-      horizontal: "right",
-    }}
-    {...props}
-  />
-))(({ theme }) => ({
+const StyledMenu = styled(Menu)(({ theme }) => ({
   "& .MuiPaper-root": {
     borderRadius: 6,
     marginTop: theme.spacing(1),
@@ -56,71 +43,79 @@ const StyledMenu = styled((props) => (
 }));
 
 export default function CommentManipulateItems({ id, comment, setComments }) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [isEditFormOpen, setIsEditFormOpen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [isEditFormOpen, setIsEditFormOpen] = useState(false);
+
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
 
   const handleDelete = (id) => {
     handleDeleteComment(id);
-    setComments((prev) => prev.filter((comment) => comment.id !== id));
+    setComments((prev) => prev.filter((c) => c.id !== id));
   };
 
   return (
     <div className='flex flex-col gap-4'>
-      <div className='block'>
-        <IconButton
+      <div>
+        <div
           aria-label='more'
-          id='long-button'
-          aria-controls={open ? "long-menu" : undefined}
-          aria-expanded={open ? "true" : undefined}
+          aria-controls='comment-menu'
           aria-haspopup='true'
           onClick={handleClick}
+          className='p-2'
         >
-          <MoreVertIcon />
-        </IconButton>
-        <StyledMenu
-          id='demo-customized-menu'
-          MenuListProps={{
-            "aria-labelledby": "demo-customized-button",
-          }}
-          anchorEl={anchorEl}
+          <MoreVertIcon className='dark:text-white text-gray-500' />
+        </div>
+        <Popover
+          id='comment-menu'
           open={open}
+          anchorEl={anchorEl}
           onClose={handleClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "right",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          PaperProps={{
+            className: "bg-white rounded-md shadow-md",
+          }}
+          className='dark:bg-transparent'
         >
-          <MenuItem
-            onClick={(e) => {
-              setIsEditFormOpen(!isEditFormOpen);
-              handleClose();
-            }}
-            disableRipple
-          >
-            <EditIcon />
-            Edit comment
-          </MenuItem>
-
-          <Divider sx={{ my: 0.5 }} />
-          <MenuItem
-            onClick={(e) => {
-              handleDelete(id);
-              handleClose();
-            }}
-            disableRipple
-          >
-            <ArchiveIcon />
-            Archive
-          </MenuItem>
-          <MenuItem onClick={handleClose} disableRipple></MenuItem>
-        </StyledMenu>
+          <div className='py-4 px-8 dark:bg-gray-60 '>
+            <MenuItem
+              onClick={() => {
+                setIsEditFormOpen(!isEditFormOpen);
+                handleClose();
+              }}
+              disableRipple
+              className=' [&>*]:dark:bg-gray-60'
+            >
+              <EditIcon />
+              Edit comment
+            </MenuItem>
+            <Divider sx={{ my: 0.5 }} />
+            <MenuItem
+              onClick={() => handleDelete(id)}
+              disableRipple
+              className=' [&>*]:dark:bg-gray-60'
+            >
+              <ArchiveIcon />
+              Delete comment
+            </MenuItem>
+          </div>
+        </Popover>
       </div>
-      <div className=' '>
-        {isEditFormOpen && <CommentInputBox comment={comment} commentId={id} />}
-      </div>
+      {isEditFormOpen && <CommentInputBox comment={comment} commentId={id} />}
     </div>
   );
 }

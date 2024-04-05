@@ -87,7 +87,7 @@ const PostCard = ({ post, setPosts, comment }) => {
           className='mb-3'
         />
         {post.caption && (
-          <div className='text-lg font-medium capitalize text-black dark:bg-gray-36 dark:text-white my-2 ml-4'>
+          <div className='text-lg font-medium capitalize text-black dark:bg-gray-36 dark:text-white bg-white my-2 ml-4'>
             {post?.caption.length < 100 ? (
               <span className='dark:bg-gray-36'>{post?.caption}</span>
             ) : (
@@ -105,7 +105,7 @@ const PostCard = ({ post, setPosts, comment }) => {
         )}
 
         {post.images[0] && (
-          <div className='relative group w-full rounded-lg overflow-hidden shadow-md bg-gray-36 text-white dark:bg-gray-36 dark:text-white hover:shadow-lg transition-all duration-300 mt-4 px-4 group-dark:bg-gray-36 '>
+          <div className='relative group w-full rounded-lg overflow-hidden shadow-md  text-white bg-gray-100 dark:bg-gray-36 dark:text-white hover:shadow-lg transition-all duration-300 mt-4 px-4 group-dark:bg-gray-36 '>
             <img
               className='h-96 w-full overflow-hidden hover:scale-105 rounded-lg hover-rounded-lg transition-all duration-200 
             '
@@ -116,12 +116,11 @@ const PostCard = ({ post, setPosts, comment }) => {
           </div>
         )}
         <div className='p-3 my-2 dark:bg-gray-36 border-y-2 border-gray-400'>
-          <div className='flex gap-3 justify-between items-center w-full dark:bg-gray-36 '>
-            <div className='flex gap-2 dark:bg-gray-36'>
+          <div className='flex gap-3 justify-between items-center w-full dark:bg-gray-36 text-gray-36'>
+            <div className='flex gap-2 dark:bg-gray-36 text-gray-36'>
               <FaHeart
                 onClick={() => {
                   if (!user?.name) {
-                    setIsLoved(!isLoved);
                   }
                   handleLove(post.id);
                 }}

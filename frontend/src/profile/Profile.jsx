@@ -40,10 +40,12 @@ const Profile = ({ owner }) => {
             followers={followers}
             setFollowers={setFollowers}
           />
-          <div className='flex min-h-screen min-w-screen px-20 py-8'>
-            <div className='flex flex-start w-1/2 relative flex-col'>
+          <div className='flex md:min-h-screen min-w-screen lg:px-20 md:px-8 md:py-8 md:flex-row flex-col'>
+            <div className='md:flex md:flex-start md:w-1/2 relative md:flex-col'>
               <About owner={owner} />
-              <FollowersPanel followers={followers} open={open} />
+              <div className='lg:block hidden'>
+                <FollowersPanel followers={followers} open={open} />
+              </div>
             </div>
             <UserPosts owner={owner} />
           </div>

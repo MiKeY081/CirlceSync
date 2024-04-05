@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 const UserAvatar = () => {
   return (
-    <FaUserCircle className=' -ml-1 text-gray-500 text-4xl w-72 h-72 text-center ' />
+    <FaUserCircle className=' text-gray-500 text-4xl w-full h-full text-center ' />
   );
 };
 
@@ -33,11 +33,11 @@ const UserCard = ({ user }) => {
 
   return (
     user && (
-      <div className='bg-white shadow-lg rounded-sm overflow-hidden justify-center items-center'>
-        <div className='gap-4 w-80 h-80'>
+      <div className='bg-white shadow-lg rounded-lg overflow-hidden justify-center items-center dark:bg-gray-36 [&>*]:dark:bg-gray-58 px-4 pt-4 pb-2 mr-2 '>
+        <div className='gap-4 min-w-20'>
           {user?.image ? (
             <img
-              className='rounded-sm w-80 h-80 object-cover object-center'
+              className='rounded-sm  min-w-20 object-cover object-center'
               src={user.image}
               alt='User Avatar'
             />
@@ -46,12 +46,14 @@ const UserCard = ({ user }) => {
           )}
         </div>
         <div className='p-4'>
-          <h3 className='text-gray-800 font-semibold text-xl'>{user.name}</h3>
-          <div className='flex items-center justify-between mt-2'>
+          <h3 className='text-gray-800 font-semibold text-xl dark:bg-gray-58'>
+            {user.name}
+          </h3>
+          <div className='flex items-center justify-between mt-2 dark:bg-gray-58 '>
             {!(client?.user?.id == user?.id) && (
               <Follow followerId={client?.user?.id} followingId={user?.id} />
             )}
-            <div className='flex gap-3 justify-center items-center'>
+            <div className='flex gap-3 justify-center items-center dark:bg-gray-58 [&>*]:dark:bg-gray-58'>
               {followers && (
                 <span>{followers?.length ? followers?.length : ""}</span>
               )}
