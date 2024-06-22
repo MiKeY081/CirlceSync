@@ -9,41 +9,46 @@ const CommentInputBox = ({
   post,
   comment: existingComment,
   commentId: existingCommentId,
+  comments, 
+  setComments
 }) => {
   const { user } = useContext(UserContext);
   const [comment, setComment] = useState(existingComment || "");
-  const [comments, setComments] = useState([]);
-
-  useEffect(() => {
-    setComments(post?.comment || []);
-  }, [post?.comment]);
 
   const handleComment = async (postId) => {
     if (!comment.trim()) {
       toast.error("Please enter a comment.");
       return;
     }
-    if (existingComment) {
-      const data = await handleEditComment(existingCommentId, comment);
-      if (data.success) {
-        toast.success(data.message);
-        setComments((prev) => [
-          ...(prev.id == existingCommentId ? data.updatedComment : prev),
-        ]);
-        console.log(comments);
-        setComment("");
+    try {
+      if (existingComment) {
+        const data = await handleEditComment(existingCommentId, comment);
+        if (data.success) {
+          toast.success(data.message);
+          setComments((prevCom) => {
+            return prevCom.map((prev) =>
+              prev.id == existingCommentId ? data.updatedComment : prev
+            );
+          });
+          setComment("");
+        } else {
+          toast.error(data.error);
+        }
       } else {
-        toast.error(data.error);
+        const data = await handleCreateComment(postId, comment);
+        if (data.success) {
+          toast.success(data.message);
+          console.log("entered");
+          setComments((prev) => {
+            return [data.newComment, ...prev];
+          });
+          setComment("");
+        } else {
+          toast.error(data.error);
+        }
       }
-    } else {
-      const data = await handleCreateComment(postId, comment);
-      if (data.success) {
-        toast.success(data.message);
-        setComments([data.newComment, ...comments]);
-        setComment("");
-      } else {
-        toast.error(data.error);
-      }
+    } catch (error) {
+      console.log(error);
     }
   };
 

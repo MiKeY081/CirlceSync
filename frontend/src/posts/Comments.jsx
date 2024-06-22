@@ -10,6 +10,7 @@ const Comments = ({
 }) => {
   const { user } = useContext(UserContext);
   const [comments, setComments] = useState([]);
+
   useEffect(() => {
     setComments(post?.comment || []);
   }, [post?.comment]);
@@ -17,8 +18,17 @@ const Comments = ({
   return (
     user && (
       <div className='mt-1 p-0 dark:bg-gray-36 '>
-        <ShowComments post={post} />
-        <CommentInputBox post={post} comment={existingComment} />
+        <ShowComments
+          post={post}
+          comments={comments}
+          setComments={setComments}
+        />
+        <CommentInputBox
+          post={post}
+          comment={existingComment}
+          comments={comments}
+          setComments={setComments}
+        />
       </div>
     )
   );

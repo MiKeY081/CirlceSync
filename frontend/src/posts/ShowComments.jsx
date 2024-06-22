@@ -4,14 +4,9 @@ import { calculateDateTime } from "../assets/Functions/DateFunctions";
 import UserTab from "../components/UserTab";
 import CommentManipulateItems from "../assets/Widgets/CommentManipulateItems";
 
-const ShowComments = ({ post }) => {
+const ShowComments = ({ post, comments, setComments }) => {
   const { user } = useContext(UserContext);
-  const [comments, setComments] = useState([]);
   const [showAllComments, setShowAllComments] = useState(false);
-
-  useEffect(() => {
-    setComments(post?.comment || []);
-  }, [post?.comment]);
 
   const toggleShowAllComments = () => {
     setShowAllComments(!showAllComments);
@@ -53,7 +48,7 @@ const ShowComments = ({ post }) => {
                               )}
                           </p>
                         </UserTab>
-                        {comments && (
+                        {comments && obj?.userId == user.id && (
                           <CommentManipulateItems
                             id={obj?.id}
                             comment={obj?.comment}
