@@ -12,24 +12,32 @@ import Brightness7Icon from "@mui/icons-material/Brightness7";
 export default function BasicMenu() {
   const { setUser } = React.useContext(UserContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [toggleTheme, setToggleTheme] = React.useState("light");
   const open = Boolean(anchorEl);
+  const [toggleTheme, setToggleTheme] = React.useState(null);
 
-  const handleToggleTheme = () => {
-    const newTheme = toggleTheme !== "dark" ? "dark" : "light";
-    document.body.classList.toggle("dark", newTheme === "dark");
-    localStorage.setItem("theme", newTheme);
-    setToggleTheme(newTheme);
-  };
-
-  // To retrieve the theme preference on component mount
   React.useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      setToggleTheme(savedTheme);
-      document.body.classList.toggle("dark", savedTheme === "dark");
+    if (localStorage.getItem("theme")) {
+      setToggleTheme(JSON.stringify(localStorage.getItem("theme")));
+    }
+    else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      setToggleTheme("dark");
+    } else {
+      setToggleTheme("light");
     }
   }, []);
+
+  React.useEffect(() => {
+    if (toggleTheme == "dark") {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  }, [toggleTheme]);
+
+  const handleSwitchTheme = () => {
+    setToggleTheme(toggleTheme == "dark" ? "light" : "dark");
+    localStorage.setItem("theme", toggleTheme == "dark" ? "light" : "dark");
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -89,7 +97,7 @@ export default function BasicMenu() {
             </Link>
           )}
         </div>
-        <div onClick={handleToggleTheme} className=' dark:text-white'>
+        <div onClick={() => handleSwitchTheme()} className=' dark:text-white'>
           <span className='block px-4 py-2 hover:bg-gray-200  dark:hover:bg-gray-60 [&>*]:dark:hover:bg-gray-60'>
             {toggleTheme !== "dark" ? <Brightness4Icon /> : <Brightness7Icon />}{" "}
             Theme

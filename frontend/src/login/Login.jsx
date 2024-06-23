@@ -63,13 +63,10 @@ const Login = () => {
           >
             Sign In
           </button>
-          <Link
-            to={"/user/register"}
-            className='dark:bg-blue-700 bg-blue-700 hover:bg-blue-800 dark:hover:bg-blue-800 '
-          >
+          <Link to={"/user/register"} className=''>
             <span className='text-xs'>Don't have an account?</span>
             <br />{" "}
-            <span className='flex justify-end dark:bg-blue-700 bg-blue-700 hover:bg-blue-800 dark:hover:bg-blue-800'>
+            <span className='inline-flex text-blue-800 dark:text-blue-500 justify-end rounded-sm px-2'>
               Register
             </span>
           </Link>

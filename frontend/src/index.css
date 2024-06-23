@@ -5,3 +5,7 @@
 * {
   @apply dark:bg-gray-24 dark:text-white transition-colors duration-200;
 }
+
+body {
+  @apply dark:bg-gray-24 dark:text-white transition-colors duration-200;
+}

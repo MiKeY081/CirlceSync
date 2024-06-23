@@ -60,14 +60,14 @@ const Register = () => {
             className='w-full bg-transparent outline-none'
           />
         </div>
-        <div className='flex justify-between'>
+        <div className='flex justify-between items-center mt-6'>
           <button
             onClick={(e) => handleRegister(e)}
-            className='dark:bg-blue-700 bg-blue-700 hover:bg-blue-800 dark:hover:bg-blue-800 text-white font-bold py-2 px-4 mt-6 rounded'
+            className='dark:bg-blue-700 bg-blue-700 hover:bg-blue-800 dark:hover:bg-blue-800 text-white font-bold py-2 px-4  rounded'
           >
             Register
           </button>
-          <Link to={"/user/login"} className='text-blue-600'>
+          <Link to={"/user/login"} className='text-blue-600 dark:text-blue-500'>
             Back
           </Link>
         </div>
